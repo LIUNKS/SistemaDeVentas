@@ -53,6 +53,7 @@ public class Sistema extends javax.swing.JFrame {
         telefonoCV_TXT = new javax.swing.JTextField();
         direccionCV_TXT = new javax.swing.JTextField();
         razonCV_TXT = new javax.swing.JTextField();
+        idProductoNV_TXT = new javax.swing.JTextField();
         panel_2 = new javax.swing.JPanel();
         dni_panel_2 = new javax.swing.JLabel();
         dniTXT_2 = new javax.swing.JTextField();
@@ -107,10 +108,12 @@ public class Sistema extends javax.swing.JFrame {
         botonEliminar_4 = new javax.swing.JButton();
         botonNuevo_4 = new javax.swing.JButton();
         botonExcel_4 = new javax.swing.JButton();
+        idProductoTXT = new javax.swing.JTextField();
         panel_5 = new javax.swing.JPanel();
         tabla_ventas = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botonPDF = new javax.swing.JButton();
+        idVentasTXT = new javax.swing.JTextField();
         panel_6 = new javax.swing.JPanel();
         titulo_tabla_6 = new javax.swing.JLabel();
         ruc_panel_6 = new javax.swing.JLabel();
@@ -286,28 +289,28 @@ public class Sistema extends javax.swing.JFrame {
 
         getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 900, 110));
 
-        codigo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         codigo.setText("Código");
 
         codigoTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        descripcion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        descripcion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         descripcion.setText("Descripción");
 
         descripcionTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        cantidad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         cantidad.setText("Cantidad");
 
         cantidadTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        precio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        precio.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         precio.setText("Precio");
 
         precioTXT.setEditable(false);
         precioTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        stock.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        stock.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         stock.setText("Stock Disponible");
 
         stockTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -334,12 +337,12 @@ public class Sistema extends javax.swing.JFrame {
             tabla_1.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
-        dni.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        dni.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         dni.setText("DNI / RUC");
 
         dniTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        nombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         nombre.setText("NOMBRE");
 
         nombreTXT.setEditable(false);
@@ -368,15 +371,18 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(descripcion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cantidad)
                     .addComponent(cantidadTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(precio)
-                    .addComponent(precioTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
+                    .addGroup(panel_1Layout.createSequentialGroup()
+                        .addComponent(precioTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(idProductoNV_TXT, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(stockTXT))
@@ -425,7 +431,8 @@ public class Sistema extends javax.swing.JFrame {
                             .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(stockTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(precioTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cantidadTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cantidadTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(idProductoNV_TXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(codigoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -455,7 +462,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(total)
                             .addComponent(total_precio))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         body.addTab("tab1", panel_1);
@@ -795,12 +802,18 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addComponent(botonNuevo_4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabla_productos, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
+                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabla_productos, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                    .addGroup(panel_4Layout.createSequentialGroup()
+                        .addComponent(idProductoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panel_4Layout.setVerticalGroup(
             panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_4Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(13, 13, 13)
+                .addComponent(idProductoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_4Layout.createSequentialGroup()
                         .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -866,7 +879,10 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_5Layout.createSequentialGroup()
                 .addContainerGap(76, Short.MAX_VALUE)
                 .addGroup(panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_5Layout.createSequentialGroup()
+                        .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(idVentasTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -874,7 +890,9 @@ public class Sistema extends javax.swing.JFrame {
             panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_5Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(idVentasTXT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1083,7 +1101,10 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton eliminar;
     private javax.swing.JPanel header;
     private javax.swing.JTextField idClienteTXT;
+    private javax.swing.JTextField idProductoNV_TXT;
+    private javax.swing.JTextField idProductoTXT;
     private javax.swing.JTextField idProveedorTXT;
+    private javax.swing.JTextField idVentasTXT;
     private javax.swing.JButton imprimir;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JTable jTable1;
