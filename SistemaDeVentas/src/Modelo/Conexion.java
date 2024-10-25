@@ -6,12 +6,13 @@ import java.sql.SQLException;
 
 public class Conexion {
     
-    Connection con;
+    //CONEXION CON LA BASE DE DATOS
+    Connection conexion;
     public Connection getConnection(){
         try{
             String myBD = "jdbc:mysql://localhost:3306/sistemaventaferreteria?serverTimezone=UTC";
-            con = DriverManager.getConnection(myBD, "root", "");
-            return con;
+            conexion = DriverManager.getConnection(myBD, "root", "");
+            return conexion;
         } catch (SQLException e){
             System.out.println(e.toString());
         }

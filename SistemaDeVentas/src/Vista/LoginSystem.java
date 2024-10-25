@@ -3,20 +3,25 @@ package Vista;
 import Modelo.Login;
 import Modelo.LoginDAO;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class LoginSystem extends javax.swing.JFrame {
 
+    //VARIABLES DEL MOUSE
     int xMouse, yMouse;
     
+    //INSTANCIAS NECESARIAS
     Login login = new Login();
     LoginDAO logindao = new LoginDAO();
     
     public LoginSystem() {
         initComponents();
+        //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
     }
     
     public void validar(){
+        //VALIDA QUE LOS DATOS INGRESADOS EN EL LOGIN SEAN IGUALES A LOS USUARIOS DE LA BASE DE DATOS
         String correo = userTxT.getText();
         String pass = String.valueOf(passwordTxT.getPassword());
         
@@ -27,6 +32,8 @@ public class LoginSystem extends javax.swing.JFrame {
                 Sistema sistema = new Sistema();
                 sistema.setVisible(true);
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "El correo o la contraseña que ingresaste son incorrectos. Por favor, inténtalo de nuevo");
             }
             
         }
@@ -217,31 +224,37 @@ public class LoginSystem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        //MOVIMIENTO DE LA VENTANA DEL PROGRAMA
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        //MOVIMIENTO DE LA VENTANA DEL PROGRAMA
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
     private void botonSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseEntered
+        //HOVER DEL BOTON DE CERRAR
         botonSalir.setBackground(Color.red);
         botonSalirLabel.setForeground(Color.white);
     }//GEN-LAST:event_botonSalirMouseEntered
 
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseClicked
+        //CERRAR EL PROGRAMA
         System.exit(0);
     }//GEN-LAST:event_botonSalirMouseClicked
 
     private void botonSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseExited
+        //HOVER DEL BOTON DE CERRAR
         botonSalir.setBackground(Color.white);
         botonSalirLabel.setForeground(Color.black);
     }//GEN-LAST:event_botonSalirMouseExited
 
     private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
+        //PLACEHOLDER DEL USUARIO
         if(userTxT.getText().equals("Ingrese su nombre de usuario")){
            userTxT.setText("");
            userTxT.setForeground(Color.black);
@@ -254,6 +267,7 @@ public class LoginSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_userTxTMousePressed
 
     private void passwordTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTxTMousePressed
+        //PLACEHOLDER DE LA CONTRASEÑA
         if(String.valueOf(passwordTxT.getPassword()).equals("***************")){
             passwordTxT.setText("");
             passwordTxT.setForeground(Color.black);
@@ -266,6 +280,7 @@ public class LoginSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordTxTMousePressed
 
     private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
+        //LLAMA AL METODO VALIDAR USUARIO AL PRESIONAR EL BOTON "ENTRAR"
         validar();
     }//GEN-LAST:event_botonIniciarActionPerformed
 

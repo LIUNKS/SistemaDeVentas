@@ -3,30 +3,44 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginDAO {
     
-    Connection con;
-    PreparedStatement ps;
-    ResultSet rs;
+    //DATOS PARA INTERACTUAR CON LA BASE DE DATOS
+    Connection connection;
+    PreparedStatement declaracion;
+    ResultSet resultado;
     
-    Conexion cn = new Conexion();
+    //INSTANCIA
+    Conexion conexion = new Conexion();
     
     
     public Login log(String correo, String pass){
+        //INSTANCIA
         Login login = new Login();
+        //CONSULTA A LA BASE DE DATOS
         String sql = "SELECT * FROM usuario WHERE correo = ? AND pass = ?";
+        
+        //MANEJO DE EXCEPCIONES
         try {
-            con = cn.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setString(1, correo);
-            ps.setString(2, pass);
-            rs = ps.executeQuery();
-            if (rs.next()){
-                login.setId(rs.getInt("id"));
-                login.setNombre(rs.getString("nombre"));
-                login.setCorreo(rs.getString("correo"));
-                login.setPass(rs.getString("pass"));
+            //METODO PARA MANTENER LA CONECCION ACTIVA CON LA BASE DE DATOS
+            connection = conexion.getConnection();
+            //CONSULTA PREPARADA PARA LA BASE DE DATOS
+            declaracion = connection.prepareStatement(sql);
+            //ASIGNACION DE VALORES (CORREO Y CONTRASEÑA)
+            declaracion.setString(1, correo);
+            declaracion.setString(2, pass);
+            //VERIFICA SI HAY UNA FILA QUE COINCIDA CON LA CONSULTA
+            resultado = declaracion.executeQuery();
+            if (resultado.next()){
+                //ASIGNACION DE DATOS AL OBJETO LOGIN
+                login.setId(resultado.getInt("id"));
+                login.setNombre(resultado.getString("nombre"));
+                login.setCorreo(resultado.getString("correo"));
+                login.setPass(resultado.getString("pass"));
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -34,4 +48,5 @@ public class LoginDAO {
         
         return login;
     }
+    
 }

@@ -1,16 +1,55 @@
 package Vista;
 
+import Modelo.Cliente;
+import Modelo.ClienteDAO;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Sistema extends javax.swing.JFrame {
 
+    //VARIABLES DEL MOUSE
     int xMouse, yMouse;
-
+    
+    //INSTANCIAS NECESARIAS
+    Cliente cliente = new Cliente();
+    ClienteDAO clientedao = new ClienteDAO();
+    DefaultTableModel modelo = new DefaultTableModel();
+    
     public Sistema() {
         initComponents();
+        //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
     }
+    
+    public void ListarCliente() {
+        //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA CLIENTE
+        List<Cliente> listarClientes = clientedao.listarCliente();
+        modelo = (DefaultTableModel) tabla_2.getModel();
+        Object[] objeto = new Object[6];
+        for (int i = 0; i < listarClientes.size(); i++) {
+            objeto[0] = listarClientes.get(i).getIdCliente();
+            objeto[1] = listarClientes.get(i).getDni();
+            objeto[2] = listarClientes.get(i).getNombre();
+            objeto[3] = listarClientes.get(i).getTelefono();
+            objeto[4] = listarClientes.get(i).getDireccion();
+            objeto[5] = listarClientes.get(i).getRazonSocial();
+            modelo.addRow(objeto);
+        }
+        
+        tabla_2.setModel(modelo);
+        
+    }
 
+    public void LimpiarTabla(){
+        //METODO PARA LIMPIAR LA TABLA AL SELECCIONAR EL BOTON DE CLIENTE
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i =i -1;
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -206,6 +245,11 @@ public class Sistema extends javax.swing.JFrame {
         botonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clientes.png"))); // NOI18N
         botonClientes.setText("Clientes");
         botonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonClientesActionPerformed(evt);
+            }
+        });
 
         botonProveedor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/proveedor.png"))); // NOI18N
@@ -317,7 +361,6 @@ public class Sistema extends javax.swing.JFrame {
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        eliminar.setLabel("");
 
         tabla_1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         tabla_1.setModel(new javax.swing.table.DefaultTableModel(
@@ -488,26 +531,42 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "DNI/RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
+                "ID", "DNI/RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
             }
         ));
+        tabla_2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_2MouseClicked(evt);
+            }
+        });
         tabla_clientes.setViewportView(tabla_2);
         if (tabla_2.getColumnModel().getColumnCount() > 0) {
-            tabla_2.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tabla_2.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tabla_2.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tabla_2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tabla_2.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tabla_2.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tabla_2.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabla_2.getColumnModel().getColumn(3).setPreferredWidth(50);
             tabla_2.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tabla_2.getColumnModel().getColumn(5).setPreferredWidth(80);
         }
 
         botomGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
         botomGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botomGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botomGuardarActionPerformed(evt);
+            }
+        });
 
         botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Actualizar (2).png"))); // NOI18N
         botonActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         botonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
 
         botonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         botonNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -994,29 +1053,87 @@ public class Sistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMousePressed
+        //MOVIMIENTO DE LA VENTANA DEL PROGRAMA
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_panelMousePressed
 
     private void panelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseDragged
+        //MOVIMIENTO DE LA VENTANA DEL PROGRAMA
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_panelMouseDragged
 
     private void botonExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonExitMouseEntered
+        //HOVER DEL BOTON DE CERRAR
         botonExit.setBackground(Color.red);
         botonExitLabel.setForeground(Color.white);
     }//GEN-LAST:event_botonExitMouseEntered
 
     private void botonExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonExitMouseExited
+        //HOVER DEL BOTON DE CERRAR
         botonExit.setBackground(new Color(255,102,0));
         botonExitLabel.setForeground(Color.black);
     }//GEN-LAST:event_botonExitMouseExited
 
     private void botonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonExitMouseClicked
+        //CERRAR EL PROGRAMA
         System.exit(0);
     }//GEN-LAST:event_botonExitMouseClicked
+
+    private void botomGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botomGuardarActionPerformed
+        //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE CLIENTE
+        if (!"".equals(dniTXT_2.getText()) &&
+            !"".equals(nombreTXT_2.getText()) && 
+            !"".equals(telefonoTXT_2.getText()) && 
+            !"".equals(direccionTXT_2.getText())) {
+            cliente.setDni(Integer.parseInt(dniTXT_2.getText()));
+            cliente.setNombre((nombreTXT_2.getText()));
+            cliente.setTelefono(Integer.parseInt(telefonoTXT_2.getText()));
+            cliente.setDireccion((direccionTXT_2.getText()));
+            cliente.setRazonSocial((rSocialTXT_2.getText()));
+            clientedao.RegistrarCliente(cliente);
+            LimpiarTabla();
+            LimpiarCliente();
+            ListarCliente();
+            JOptionPane.showMessageDialog(null, "Cliente registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+        }
+    }//GEN-LAST:event_botomGuardarActionPerformed
+
+    private void botonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClientesActionPerformed
+        //METODOS
+        LimpiarTabla();
+        ListarCliente();
+        //SELECCIONA LA TABLA 2 AL PRESIONAR EL BOTON CLIENTES
+        body.setSelectedIndex(1);
+    }//GEN-LAST:event_botonClientesActionPerformed
+
+    private void tabla_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_2MouseClicked
+        //ASIGNA LOS DATOS DE LA TABLA AL FORMULARIO PARA QUE SEAN EDITADOS
+        int fila = tabla_2.rowAtPoint(evt.getPoint());
+        idClienteTXT.setText(tabla_2.getValueAt(fila, 0).toString());
+        dniTXT_2.setText(tabla_2.getValueAt(fila, 1).toString());
+        nombreTXT_2.setText(tabla_2.getValueAt(fila, 2).toString());
+        telefonoTXT_2.setText(tabla_2.getValueAt(fila, 3).toString());
+        direccionTXT_2.setText(tabla_2.getValueAt(fila, 4).toString());
+        rSocialTXT_2.setText(tabla_2.getValueAt(fila, 5).toString());
+    }//GEN-LAST:event_tabla_2MouseClicked
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        if (!"".equals(idClienteTXT.getText())) {
+            int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar?");
+            if (pregunta == 0){
+                int id = Integer.parseInt(idClienteTXT.getText());
+                clientedao.eliminarCliente(id);
+                LimpiarTabla();
+                ListarCliente();
+                LimpiarCliente();
+            }
+        }
+    }//GEN-LAST:event_botonEliminarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1164,4 +1281,13 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel total;
     private javax.swing.JLabel total_precio;
     // End of variables declaration//GEN-END:variables
+    private void LimpiarCliente (){
+        idClienteTXT.setText("");
+        dniTXT_2.setText("");
+        nombreTXT_2.setText("");
+        telefonoTXT_2.setText("");
+        direccionTXT_2.setText("");
+        rSocialTXT_2.setText("");
+    }
+
 }

@@ -3,6 +3,7 @@ package Modelo;
 
 public class Login {
     
+    //ATRIBUTOS DEL LOGIN
     private int id;
     private String nombre;
     private String correo;
