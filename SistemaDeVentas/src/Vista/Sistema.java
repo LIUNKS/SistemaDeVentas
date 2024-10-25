@@ -11,18 +11,20 @@ public class Sistema extends javax.swing.JFrame {
 
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
-    
+
     //INSTANCIAS NECESARIAS
     Cliente cliente = new Cliente();
     ClienteDAO clientedao = new ClienteDAO();
     DefaultTableModel modelo = new DefaultTableModel();
-    
+
     public Sistema() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
+        //OCULTAR EL CAMPO DONDE SALE EL VALOR DEL ID
+        idClienteTXT.setVisible(false);
     }
-    
+
     public void ListarCliente() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA CLIENTE
         List<Cliente> listarClientes = clientedao.listarCliente();
@@ -37,19 +39,19 @@ public class Sistema extends javax.swing.JFrame {
             objeto[5] = listarClientes.get(i).getRazonSocial();
             modelo.addRow(objeto);
         }
-        
+
         tabla_2.setModel(modelo);
-        
+
     }
 
-    public void LimpiarTabla(){
+    public void LimpiarTabla() {
         //METODO PARA LIMPIAR LA TABLA AL SELECCIONAR EL BOTON DE CLIENTE
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
-            i =i -1;
+            i = i - 1;
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -559,6 +561,11 @@ public class Sistema extends javax.swing.JFrame {
 
         botonActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Actualizar (2).png"))); // NOI18N
         botonActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
 
         botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         botonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -570,6 +577,11 @@ public class Sistema extends javax.swing.JFrame {
 
         botonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         botonNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_2Layout = new javax.swing.GroupLayout(panel_2);
         panel_2.setLayout(panel_2Layout);
@@ -605,7 +617,7 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(tabla_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panel_2Layout.createSequentialGroup()
                 .addGap(298, 298, 298)
-                .addComponent(idClienteTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(idClienteTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_2Layout.setVerticalGroup(
@@ -1073,7 +1085,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void botonExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonExitMouseExited
         //HOVER DEL BOTON DE CERRAR
-        botonExit.setBackground(new Color(255,102,0));
+        botonExit.setBackground(new Color(255, 102, 0));
         botonExitLabel.setForeground(Color.black);
     }//GEN-LAST:event_botonExitMouseExited
 
@@ -1084,10 +1096,10 @@ public class Sistema extends javax.swing.JFrame {
 
     private void botomGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botomGuardarActionPerformed
         //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE CLIENTE
-        if (!"".equals(dniTXT_2.getText()) &&
-            !"".equals(nombreTXT_2.getText()) && 
-            !"".equals(telefonoTXT_2.getText()) && 
-            !"".equals(direccionTXT_2.getText())) {
+        if (!"".equals(dniTXT_2.getText())
+                && !"".equals(nombreTXT_2.getText())
+                && !"".equals(telefonoTXT_2.getText())
+                && !"".equals(direccionTXT_2.getText())) {
             cliente.setDni(Integer.parseInt(dniTXT_2.getText()));
             cliente.setNombre((nombreTXT_2.getText()));
             cliente.setTelefono(Integer.parseInt(telefonoTXT_2.getText()));
@@ -1125,7 +1137,7 @@ public class Sistema extends javax.swing.JFrame {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         if (!"".equals(idClienteTXT.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar?");
-            if (pregunta == 0){
+            if (pregunta == 0) {
                 int id = Integer.parseInt(idClienteTXT.getText());
                 clientedao.eliminarCliente(id);
                 LimpiarTabla();
@@ -1134,6 +1146,34 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        if ("".equals(idClienteTXT.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            if (!"".equals(dniTXT_2.getText())
+                    && !"".equals(nombreTXT_2.getText())
+                    && !"".equals(telefonoTXT_2.getText())
+                    && !"".equals(direccionTXT_2.getText())) {
+                cliente.setDni(Integer.parseInt(dniTXT_2.getText()));
+                cliente.setNombre((nombreTXT_2.getText()));
+                cliente.setTelefono(Integer.parseInt(telefonoTXT_2.getText()));
+                cliente.setDireccion((direccionTXT_2.getText()));
+                cliente.setRazonSocial((rSocialTXT_2.getText()));
+                cliente.setIdCliente(Integer.parseInt(idClienteTXT.getText()));
+                clientedao.modificarClientes(cliente);
+                LimpiarTabla();
+                LimpiarCliente();
+                ListarCliente();
+            } else {
+                JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+            }
+        }
+    }//GEN-LAST:event_botonActualizarActionPerformed
+
+    private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
+        LimpiarCliente();
+    }//GEN-LAST:event_botonNuevoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1281,7 +1321,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel total;
     private javax.swing.JLabel total_precio;
     // End of variables declaration//GEN-END:variables
-    private void LimpiarCliente (){
+    private void LimpiarCliente() {
         idClienteTXT.setText("");
         dniTXT_2.setText("");
         nombreTXT_2.setText("");
