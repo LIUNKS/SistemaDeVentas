@@ -1,14 +1,35 @@
 package Vista;
 
+import Modelo.Login;
+import Modelo.LoginDAO;
 import java.awt.Color;
 
-public class Login extends javax.swing.JFrame {
+public class LoginSystem extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     
-    public Login() {
+    Login login = new Login();
+    LoginDAO logindao = new LoginDAO();
+    
+    public LoginSystem() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public void validar(){
+        String correo = userTxT.getText();
+        String pass = String.valueOf(passwordTxT.getPassword());
+        
+        if (!"".equals(correo) || !"".equals(pass)){
+ 
+            login = logindao.log(correo, pass);
+            if(login.getCorreo() != null && login.getPass() != null){
+                Sistema sistema = new Sistema();
+                sistema.setVisible(true);
+                dispose();
+            }
+            
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -32,8 +53,7 @@ public class Login extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         separador_2 = new javax.swing.JSeparator();
         passwordTxT = new javax.swing.JPasswordField();
-        botonInicio = new javax.swing.JPanel();
-        botonIniciarLabel = new javax.swing.JLabel();
+        botonIniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -171,37 +191,16 @@ public class Login extends javax.swing.JFrame {
         });
         background.add(passwordTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 420, 30));
 
-        botonInicio.setBackground(new java.awt.Color(255, 102, 0));
-        botonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonInicioMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botonInicioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botonInicioMouseExited(evt);
+        botonIniciar.setBackground(new java.awt.Color(255, 102, 0));
+        botonIniciar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        botonIniciar.setForeground(new java.awt.Color(255, 255, 255));
+        botonIniciar.setText("ENTRAR");
+        botonIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIniciarActionPerformed(evt);
             }
         });
-
-        botonIniciarLabel.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        botonIniciarLabel.setForeground(new java.awt.Color(255, 255, 255));
-        botonIniciarLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        botonIniciarLabel.setText("ENTRAR");
-
-        javax.swing.GroupLayout botonInicioLayout = new javax.swing.GroupLayout(botonInicio);
-        botonInicio.setLayout(botonInicioLayout);
-        botonInicioLayout.setHorizontalGroup(
-            botonInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(botonIniciarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-        );
-        botonInicioLayout.setVerticalGroup(
-            botonInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(botonIniciarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
-
-        background.add(botonInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 420, 40));
+        background.add(botonIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 420, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,14 +241,6 @@ public class Login extends javax.swing.JFrame {
         botonSalirLabel.setForeground(Color.black);
     }//GEN-LAST:event_botonSalirMouseExited
 
-    private void botonInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInicioMouseExited
-        botonInicio.setBackground(new Color(255,102,0));
-    }//GEN-LAST:event_botonInicioMouseExited
-
-    private void botonInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInicioMouseEntered
-        botonInicio.setBackground(new Color(255,102,0));
-    }//GEN-LAST:event_botonInicioMouseEntered
-
     private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
         if(userTxT.getText().equals("Ingrese su nombre de usuario")){
            userTxT.setText("");
@@ -274,9 +265,9 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passwordTxTMousePressed
 
-    private void botonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInicioMouseClicked
-        //BOTON DE INICIO
-    }//GEN-LAST:event_botonInicioMouseClicked
+    private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
+        validar();
+    }//GEN-LAST:event_botonIniciarActionPerformed
 
     
     public static void main(String args[]) {
@@ -306,7 +297,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new LoginSystem().setVisible(true);
             }
         });
     }
@@ -314,8 +305,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JLabel banner;
-    private javax.swing.JLabel botonIniciarLabel;
-    private javax.swing.JPanel botonInicio;
+    private javax.swing.JButton botonIniciar;
     private javax.swing.JPanel botonSalir;
     private javax.swing.JLabel botonSalirLabel;
     private javax.swing.JLabel faviconEmpresa;
