@@ -1,7 +1,7 @@
 package Vista;
 
 import Modelo.Login;
-import Modelo.LoginDAO;
+import Controlador.LoginDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 

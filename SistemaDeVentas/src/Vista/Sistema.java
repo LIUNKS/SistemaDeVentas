@@ -1,7 +1,7 @@
 package Vista;
 
 import Modelo.Cliente;
-import Modelo.ClienteDAO;
+import Controlador.ClienteDAO;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -41,7 +41,6 @@ public class Sistema extends javax.swing.JFrame {
         }
 
         tabla_2.setModel(modelo);
-
     }
 
     public void LimpiarTabla() {
@@ -330,7 +329,9 @@ public class Sistema extends javax.swing.JFrame {
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 900, 110));
