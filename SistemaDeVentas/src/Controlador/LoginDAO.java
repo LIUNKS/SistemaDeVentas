@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LoginDAO {
     
@@ -44,7 +42,7 @@ public class LoginDAO {
                 login.setCorreo(resultado.getString("correo"));
                 login.setPass(resultado.getString("pass"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.toString());
         }
         

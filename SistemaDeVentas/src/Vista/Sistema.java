@@ -2,6 +2,8 @@ package Vista;
 
 import Modelo.Cliente;
 import Controlador.ClienteDAO;
+import Controlador.ProveedorDAO;
+import Modelo.Proveedor;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,8 +17,10 @@ public class Sistema extends javax.swing.JFrame {
     //INSTANCIAS NECESARIAS
     Cliente cliente = new Cliente();
     ClienteDAO clientedao = new ClienteDAO();
+    Proveedor proveedor = new Proveedor();
+    ProveedorDAO proveedordao = new ProveedorDAO();
     DefaultTableModel modelo = new DefaultTableModel();
-
+    
     public Sistema() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
@@ -107,7 +111,7 @@ public class Sistema extends javax.swing.JFrame {
         rSocialTXT_2 = new javax.swing.JTextField();
         tabla_clientes = new javax.swing.JScrollPane();
         tabla_2 = new javax.swing.JTable();
-        botomGuardar = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
         botonActualizar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonNuevo = new javax.swing.JButton();
@@ -125,7 +129,7 @@ public class Sistema extends javax.swing.JFrame {
         rSocialTXT_3 = new javax.swing.JTextField();
         tabla_proveedor = new javax.swing.JScrollPane();
         tabla_3 = new javax.swing.JTable();
-        botomGuardar_3 = new javax.swing.JButton();
+        botonGuardar_3 = new javax.swing.JButton();
         botonActualizar_3 = new javax.swing.JButton();
         botonEliminar_3 = new javax.swing.JButton();
         botonNuevo_3 = new javax.swing.JButton();
@@ -552,11 +556,11 @@ public class Sistema extends javax.swing.JFrame {
             tabla_2.getColumnModel().getColumn(5).setPreferredWidth(80);
         }
 
-        botomGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
-        botomGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botomGuardar.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
+        botonGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botomGuardarActionPerformed(evt);
+                botonGuardarActionPerformed(evt);
             }
         });
 
@@ -609,7 +613,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botomGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addGroup(panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,7 +654,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(rSocialTXT_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(53, 53, 53)
                         .addGroup(panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botomGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_2Layout.createSequentialGroup()
@@ -685,20 +689,26 @@ public class Sistema extends javax.swing.JFrame {
 
             },
             new String [] {
-                "RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
+                "ID", "RUC", "NOMBRE", "TELEFONO", "DIRECCION", "RAZON SOCIAL"
             }
         ));
         tabla_proveedor.setViewportView(tabla_3);
         if (tabla_3.getColumnModel().getColumnCount() > 0) {
-            tabla_3.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tabla_3.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tabla_3.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tabla_3.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tabla_3.getColumnModel().getColumn(4).setPreferredWidth(70);
+            tabla_3.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tabla_3.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tabla_3.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabla_3.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tabla_3.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tabla_3.getColumnModel().getColumn(5).setPreferredWidth(70);
         }
 
-        botomGuardar_3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
-        botomGuardar_3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGuardar_3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
+        botonGuardar_3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGuardar_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardar_3ActionPerformed(evt);
+            }
+        });
 
         botonActualizar_3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Actualizar (2).png"))); // NOI18N
         botonActualizar_3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -733,7 +743,7 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(panel_3Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(panel_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botomGuardar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonEliminar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)
                         .addGroup(panel_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -776,7 +786,7 @@ public class Sistema extends javax.swing.JFrame {
                             .addComponent(rSocialTXT_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botomGuardar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonActualizar_3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_3Layout.createSequentialGroup()
@@ -1095,7 +1105,7 @@ public class Sistema extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_botonExitMouseClicked
 
-    private void botomGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botomGuardarActionPerformed
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE CLIENTE
         if (!"".equals(dniTXT_2.getText())
                 && !"".equals(nombreTXT_2.getText())
@@ -1114,7 +1124,7 @@ public class Sistema extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios");
         }
-    }//GEN-LAST:event_botomGuardarActionPerformed
+    }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void botonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClientesActionPerformed
         //METODOS
@@ -1176,6 +1186,23 @@ public class Sistema extends javax.swing.JFrame {
         LimpiarCliente();
     }//GEN-LAST:event_botonNuevoActionPerformed
 
+    private void botonGuardar_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar_3ActionPerformed
+        //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE CLIENTE
+        if (!"".equals(rucTXT_3.getText())
+                && !"".equals(nombreTXT_3.getText())
+                && !"".equals(telefonoTXT_3.getText())
+                && !"".equals(direccionTXT_3.getText())) {
+            proveedor.setRuc(Integer.parseInt(rucTXT_3.getText()));
+            proveedor.setNombre((nombreTXT_3.getText()));
+            proveedor.setTelefono(Integer.parseInt(telefonoTXT_3.getText()));
+            proveedor.setDireccion((direccionTXT_3.getText()));
+            proveedor.setRazonSocial((rSocialTXT_3.getText()));
+            proveedordao.RegistrarProveedor(proveedor);
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+        }
+    }//GEN-LAST:event_botonGuardar_3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1211,8 +1238,6 @@ public class Sistema extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizar_panel_6;
     private javax.swing.JTabbedPane body;
-    private javax.swing.JButton botomGuardar;
-    private javax.swing.JButton botomGuardar_3;
     private javax.swing.JButton botonActualizar;
     private javax.swing.JButton botonActualizar_3;
     private javax.swing.JButton botonActualizar_4;
@@ -1224,6 +1249,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton botonExcel_4;
     private javax.swing.JPanel botonExit;
     private javax.swing.JLabel botonExitLabel;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton botonGuardar_3;
     private javax.swing.JButton botonGuardar_4;
     private javax.swing.JButton botonNuevaVenta;
     private javax.swing.JButton botonNuevo;

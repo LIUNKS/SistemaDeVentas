@@ -705,7 +705,7 @@
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="botonEliminar" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="botomGuardar" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="botonGuardar" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -758,7 +758,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="botomGuardar" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="botonGuardar" min="-2" pref="43" max="-2" attributes="0"/>
                                   <Component id="botonActualizar" min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -896,7 +896,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="botomGuardar">
+            <Component class="javax.swing.JButton" name="botonGuardar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/GuardarTodo.png"/>
@@ -906,7 +906,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botomGuardarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGuardarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="botonActualizar">
@@ -987,7 +987,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="botomGuardar_3" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="botonGuardar_3" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
                                   <Component id="botonEliminar_3" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
@@ -1043,7 +1043,7 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="botomGuardar_3" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="botonGuardar_3" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                                   <Component id="botonActualizar_3" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1124,7 +1124,8 @@
                 <Component class="javax.swing.JTable" name="tabla_3">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="0">
+                      <Table columnCount="6" rowCount="0">
+                        <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="RUC" type="java.lang.Object"/>
                         <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
                         <Column editable="true" title="TELEFONO" type="java.lang.Object"/>
@@ -1134,6 +1135,11 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                           <Title/>
                           <Editor/>
@@ -1168,7 +1174,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="botomGuardar_3">
+            <Component class="javax.swing.JButton" name="botonGuardar_3">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/GuardarTodo.png"/>
@@ -1177,6 +1183,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGuardar_3ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="botonActualizar_3">
               <Properties>
