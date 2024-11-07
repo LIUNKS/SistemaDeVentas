@@ -53,7 +53,7 @@ public class ProveedorDAO {
     //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE CLIENTES 
     public List listarProveedor(){
         List<Proveedor> listaProveedor = new ArrayList();
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM proveedor";
         
         try {
             connection = conexion.getConnection();
@@ -62,17 +62,69 @@ public class ProveedorDAO {
             while (resultado.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setId(resultado.getInt("id"));
-                proveedor.setRuc(resultado.getInt("dni"));
+                proveedor.setRuc(resultado.getInt("ruc"));
                 proveedor.setNombre(resultado.getString("nombre"));
                 proveedor.setTelefono(resultado.getInt("telefono"));
                 proveedor.setDireccion(resultado.getString("direccion"));
                 proveedor.setRazonSocial(resultado.getString("razon"));
-                listarProveedor().add(proveedor);
+                listaProveedor.add(proveedor);
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
         
         return listaProveedor;
+    }
+    
+    //METODO PARA ELIMINAR CLIENTE
+    public boolean eliminarProveedor(int id){
+        //CONSULTA A LA BASE DE DATOS
+        String sql = "DELETE FROM proveedor WHERE id = ?";
+        //MANEJO DE EXCEPCIONES
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, id);
+            declaracion.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+    
+    //METODO PARA ACTUALIZAR DATOS DEL CLIENTE
+    public boolean modificarClientes(Proveedor proveedor){
+        
+        String sql = "UPDATE proveedor SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, proveedor.getRuc());
+            declaracion.setString(2, proveedor.getNombre());
+            declaracion.setInt(3, proveedor.getTelefono());
+            declaracion.setString(4, proveedor.getDireccion());
+            declaracion.setString(5, proveedor.getRazonSocial());
+            declaracion.setInt(6, proveedor.getId());
+            declaracion.execute();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            
+            return false;
+            
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
     }
 }
