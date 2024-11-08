@@ -2,7 +2,9 @@ package Vista;
 
 import Modelo.Cliente;
 import Controlador.ClienteDAO;
+import Controlador.ProductoDAO;
 import Controlador.ProveedorDAO;
+import Modelo.Producto;
 import Modelo.Proveedor;
 import java.awt.Color;
 import java.util.List;
@@ -19,6 +21,8 @@ public class Sistema extends javax.swing.JFrame {
     ClienteDAO clientedao = new ClienteDAO();
     Proveedor proveedor = new Proveedor();
     ProveedorDAO proveedordao = new ProveedorDAO();
+    Producto producto = new Producto();
+    ProductoDAO productodao = new ProductoDAO();
     DefaultTableModel modelo = new DefaultTableModel();
     
     public Sistema() {
@@ -162,7 +166,7 @@ public class Sistema extends javax.swing.JFrame {
         precio_panel_4 = new javax.swing.JLabel();
         precioTXT_4 = new javax.swing.JTextField();
         proveedor_4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        proveedorTXT_4 = new javax.swing.JComboBox<>();
         tabla_productos = new javax.swing.JScrollPane();
         tabla_4 = new javax.swing.JTable();
         botonGuardar_4 = new javax.swing.JButton();
@@ -854,7 +858,7 @@ public class Sistema extends javax.swing.JFrame {
         proveedor_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         proveedor_4.setText("PROVEEDOR:");
 
-        jComboBox1.setEditable(true);
+        proveedorTXT_4.setEditable(true);
 
         tabla_4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -875,6 +879,11 @@ public class Sistema extends javax.swing.JFrame {
 
         botonGuardar_4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
         botonGuardar_4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonGuardar_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardar_4ActionPerformed(evt);
+            }
+        });
 
         botonActualizar_4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Actualizar (2).png"))); // NOI18N
         botonActualizar_4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -918,7 +927,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addComponent(descripcionTXT_4)
                         .addComponent(cantidadTXT_4)
                         .addComponent(precioTXT_4)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(proveedorTXT_4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel_4Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(botonNuevo_4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -955,7 +964,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(proveedor_4)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(proveedorTXT_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_4Layout.createSequentialGroup()
@@ -1228,7 +1237,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonGuardar_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar_3ActionPerformed
-        //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE CLIENTE
+        //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE PROVEEDOR
         if (!"".equals(rucTXT_3.getText())
                 && !"".equals(nombreTXT_3.getText())
                 && !"".equals(telefonoTXT_3.getText())
@@ -1308,6 +1317,27 @@ public class Sistema extends javax.swing.JFrame {
     private void botonNuevo_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevo_3ActionPerformed
         LimpiarProveedor();
     }//GEN-LAST:event_botonNuevo_3ActionPerformed
+
+    private void botonGuardar_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar_4ActionPerformed
+        //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE PRODUCTOS
+        if (!"".equals(codigoTXT_4.getText())
+                && !"".equals(descripcionTXT_4.getText())
+                && !"".equals(cantidadTXT_4.getText())
+                && !"".equals(precioTXT_4.getText())
+                && !"".equals(proveedorTXT_4.getSelectedItem())) {
+            producto.setCodigo((codigoTXT_4.getText()));
+            producto.setNombre((descripcionTXT_4.getText()));
+            producto.setProveedor((proveedorTXT_4.getSelectedItem().toString()));
+            producto.setStock(Integer.parseInt(cantidadTXT_4.getText()));
+            producto.setPrecio(Integer.parseInt(precioTXT_4.getText()));
+            productodao.RegistrarProducto(producto);
+            //LimpiarTabla();
+            //listarProveedor();
+            //LimpiarProveedor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+        }
+    }//GEN-LAST:event_botonGuardar_4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1397,7 +1427,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField idProveedorTXT;
     private javax.swing.JTextField idVentasTXT;
     private javax.swing.JButton imprimir;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel logoEmpresa;
     private javax.swing.JPanel navBar;
@@ -1420,6 +1449,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField precioTXT;
     private javax.swing.JTextField precioTXT_4;
     private javax.swing.JLabel precio_panel_4;
+    private javax.swing.JComboBox<String> proveedorTXT_4;
     private javax.swing.JLabel proveedor_4;
     private javax.swing.JTextField rSocialTXT_2;
     private javax.swing.JTextField rSocialTXT_3;
