@@ -94,7 +94,7 @@ public class ClienteDAO {
     }
     
     //METODO PARA ACTUALIZAR DATOS DEL CLIENTE
-    public boolean modificarClientes(Cliente cliente){
+    public boolean modificarCliente(Cliente cliente){
         
         String sql = "UPDATE clientes SET dni=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
         try {

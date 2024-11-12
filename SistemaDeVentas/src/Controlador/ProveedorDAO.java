@@ -50,7 +50,7 @@ public class ProveedorDAO {
         }
     }
     
-    //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE CLIENTES 
+    //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE PROVEEDOR
     public List listarProveedor(){
         List<Proveedor> listaProveedor = new ArrayList();
         String sql = "SELECT * FROM proveedor";
@@ -76,7 +76,7 @@ public class ProveedorDAO {
         return listaProveedor;
     }
     
-    //METODO PARA ELIMINAR CLIENTE
+    //METODO PARA ELIMINAR PROVEEDOR
     public boolean eliminarProveedor(int id){
         //CONSULTA A LA BASE DE DATOS
         String sql = "DELETE FROM proveedor WHERE id = ?";
@@ -98,8 +98,8 @@ public class ProveedorDAO {
         }
     }
     
-    //METODO PARA ACTUALIZAR DATOS DEL CLIENTE
-    public boolean modificarClientes(Proveedor proveedor){
+    //METODO PARA ACTUALIZAR DATOS DEL PROVEEDOR
+    public boolean modificarProveedor(Proveedor proveedor){
         
         String sql = "UPDATE proveedor SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
         try {
