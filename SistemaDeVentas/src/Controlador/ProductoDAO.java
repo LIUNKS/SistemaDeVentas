@@ -20,8 +20,7 @@ public class ProductoDAO {
     //INSTANCIAS
     Conexion conexion = new Conexion();
     
-    
-    //METODO PARA REGISTRAR LOS PROVEEDORES EN LA BASE DE DATOS
+    //METODO PARA REGISTRAR LOS PRODUCTOS EN LA BASE DE DATOS
     public boolean RegistrarProducto(Producto producto) {
         String sql = "INSERT INTO productos (codigo, nombre, proveedor, stock, precio) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -65,14 +64,14 @@ public class ProductoDAO {
                 proveedor.addItem(resultado.getString("nombre"));
             }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             
             System.out.println(e.toString());
             
         }
     }
     
-    //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE CLIENTES 
+    //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE PRODUCTOS
     public List listarProductos(){
         List<Producto> listaProducto = new ArrayList();
         String sql = "SELECT * FROM productos";
@@ -96,5 +95,57 @@ public class ProductoDAO {
         }
         
         return listaProducto;
+    }
+    
+    //METODO PARA ELIMINAR PRODUCTOS
+    public boolean eliminarProducto(int id){
+        //CONSULTA A LA BASE DE DATOS
+        String sql = "DELETE FROM productos WHERE id = ?";
+        //MANEJO DE EXCEPCIONES
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, id);
+            declaracion.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+    
+    //METODO PARA ACTUALIZAR DATOS DEL PRODUCTO
+    public boolean modificarProducto(Producto producto){
+        
+        String sql = "UPDATE productos SET codigo=?, nombre=?, proveedor=?, stock=?, precio=? WHERE id=?";
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setString(1, producto.getCodigo());
+            declaracion.setString(2, producto.getNombre());
+            declaracion.setString(3, producto.getProveedor());
+            declaracion.setInt(4, producto.getStock());
+            declaracion.setDouble(5, producto.getPrecio());
+            declaracion.setInt(6, producto.getId());
+            declaracion.execute();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            
+            return false;
+            
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
     }
 }
