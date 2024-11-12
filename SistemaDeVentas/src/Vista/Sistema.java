@@ -8,6 +8,8 @@ import Modelo.Producto;
 import Modelo.Proveedor;
 import Reportes.Excel;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,17 +28,19 @@ public class Sistema extends javax.swing.JFrame {
     Producto producto = new Producto();
     ProductoDAO productodao = new ProductoDAO();
     DefaultTableModel modelo = new DefaultTableModel();
+    int item;
     
     public Sistema() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
         //OCULTAR EL CAMPO DONDE SALE EL VALOR DEL ID
+        idProductoNV_TXT.setVisible(false);
         idClienteTXT.setVisible(false);
         idProveedorTXT.setVisible(false);
         idProductoTXT.setVisible(false);
         AutoCompleteDecorator.decorate(proveedorTXT_4);
-        productodao.ConsultarProveedor(proveedorTXT_4);
+        productodao.consultarProveedor(proveedorTXT_4);
     }
 
     public void listarCliente() {
@@ -124,15 +128,15 @@ public class Sistema extends javax.swing.JFrame {
         body = new javax.swing.JTabbedPane();
         panel_1 = new javax.swing.JPanel();
         codigo = new javax.swing.JLabel();
-        codigoTXT = new javax.swing.JTextField();
+        codigoTXT_venta = new javax.swing.JTextField();
         descripcion = new javax.swing.JLabel();
-        descripcionTXT = new javax.swing.JTextField();
+        descripcionTXT_venta = new javax.swing.JTextField();
         cantidad = new javax.swing.JLabel();
-        cantidadTXT = new javax.swing.JTextField();
+        cantidadTXT_venta = new javax.swing.JTextField();
         precio = new javax.swing.JLabel();
-        precioTXT = new javax.swing.JTextField();
+        precioTXT_venta = new javax.swing.JTextField();
         stock = new javax.swing.JLabel();
-        stockTXT = new javax.swing.JTextField();
+        stockTXT_venta = new javax.swing.JTextField();
         eliminar = new javax.swing.JButton();
         tabla_nuevaVenta = new javax.swing.JScrollPane();
         tabla_1 = new javax.swing.JTable();
@@ -398,28 +402,38 @@ public class Sistema extends javax.swing.JFrame {
         codigo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         codigo.setText("Código");
 
-        codigoTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigoTXT_venta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigoTXT_venta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codigoTXT_ventaKeyPressed(evt);
+            }
+        });
 
         descripcion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         descripcion.setText("Descripción");
 
-        descripcionTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        descripcionTXT_venta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         cantidad.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         cantidad.setText("Cantidad");
 
-        cantidadTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cantidadTXT_venta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cantidadTXT_venta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadTXT_ventaKeyPressed(evt);
+            }
+        });
 
         precio.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         precio.setText("Precio");
 
-        precioTXT.setEditable(false);
-        precioTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        precioTXT_venta.setEditable(false);
+        precioTXT_venta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         stock.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         stock.setText("Stock Disponible");
 
-        stockTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        stockTXT_venta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -471,26 +485,26 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo)
-                    .addComponent(codigoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codigoTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descripcionTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(descripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cantidad)
-                    .addComponent(cantidadTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cantidadTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(precio)
                     .addGroup(panel_1Layout.createSequentialGroup()
-                        .addComponent(precioTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(precioTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(idProductoNV_TXT, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(stockTXT))
+                    .addComponent(stockTXT_venta))
                 .addGap(47, 47, 47)
                 .addComponent(eliminar)
                 .addGap(19, 19, 19))
@@ -534,13 +548,13 @@ public class Sistema extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(stockTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(precioTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cantidadTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(stockTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(precioTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cantidadTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(idProductoNV_TXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(codigoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(codigoTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(descripcionTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(eliminar)))
@@ -1214,7 +1228,7 @@ public class Sistema extends javax.swing.JFrame {
             cliente.setTelefono(Integer.parseInt(telefonoTXT_2.getText()));
             cliente.setDireccion((direccionTXT_2.getText()));
             cliente.setRazonSocial((rSocialTXT_2.getText()));
-            clientedao.RegistrarCliente(cliente);
+            clientedao.registrarCliente(cliente);
             limpiarTabla();
             limpiarCliente();
             listarCliente();
@@ -1298,7 +1312,7 @@ public class Sistema extends javax.swing.JFrame {
             proveedor.setTelefono(Integer.parseInt(telefonoTXT_3.getText()));
             proveedor.setDireccion((direccionTXT_3.getText()));
             proveedor.setRazonSocial((rSocialTXT_3.getText()));
-            proveedordao.RegistrarProveedor(proveedor);
+            proveedordao.registrarProveedor(proveedor);
             limpiarTabla();
             listarProveedor();
             limpiarProveedor();
@@ -1390,7 +1404,7 @@ public class Sistema extends javax.swing.JFrame {
             producto.setProveedor((proveedorTXT_4.getSelectedItem().toString()));
             producto.setStock(Integer.parseInt(cantidadTXT_4.getText()));
             producto.setPrecio(Integer.parseInt(precioTXT_4.getText()));
-            productodao.RegistrarProducto(producto);
+            productodao.registrarProducto(producto);
             limpiarTabla();
             listarProducto();
             limpiarProducto();
@@ -1454,6 +1468,65 @@ public class Sistema extends javax.swing.JFrame {
         Excel.reporte();
     }//GEN-LAST:event_botonExcel_4ActionPerformed
 
+    private void codigoTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoTXT_ventaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if (!"".equals(codigoTXT_venta.getText())) {
+                String codigoVenta = codigoTXT_venta.getText();
+                producto = productodao.buscarProducto(codigoVenta);
+                if (producto.getNombre() != null) {
+                    descripcionTXT_venta.setText("" + producto.getNombre());
+                    precioTXT_venta.setText("" + producto.getPrecio());
+                    stockTXT_venta.setText("" +producto.getStock());
+                    cantidadTXT_venta.requestFocus(); 
+                } else {
+                    descripcionTXT_venta.setText("");
+                    precioTXT_venta.setText("");
+                    stockTXT_venta.setText("");
+                    codigoTXT_venta.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese el codigo del producto");
+                codigoTXT_venta.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_codigoTXT_ventaKeyPressed
+
+    private void cantidadTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadTXT_ventaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if (!"".equals(cantidadTXT_venta.getText())) {
+                String codigoVenta = codigoTXT_venta.getText();
+                String descripcionVenta = descripcionTXT_venta.getText();
+                int cantidadVenta = Integer.parseInt(cantidadTXT_venta.getText());
+                double precioVenta = Double.parseDouble(precioTXT_venta.getText());
+                double totalVenta = cantidadVenta * precioVenta;
+                int stockVenta = Integer.parseInt(stockTXT_venta.getText());
+                if (stockVenta >= cantidadVenta) {
+                    item = item + 1;
+                    modelo = (DefaultTableModel) tabla_1.getModel();
+                    ArrayList listaVenta = new ArrayList();
+                    listaVenta.add(item);
+                    listaVenta.add(codigoVenta);
+                    listaVenta.add(descripcionVenta);
+                    listaVenta.add(cantidadVenta);
+                    listaVenta.add(precioVenta);
+                    listaVenta.add(totalVenta);
+                    Object [] objetoVenta = new Object[5];
+                    objetoVenta [0] = listaVenta.get(1);
+                    objetoVenta [1] = listaVenta.get(2);
+                    objetoVenta [2] = listaVenta.get(3);
+                    objetoVenta [3] = listaVenta.get(4);
+                    objetoVenta [4] = listaVenta.get(5);
+                    modelo.addRow(objetoVenta);
+                    tabla_1.setModel(modelo);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Stock no disponible");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad");
+            }
+        }
+    }//GEN-LAST:event_cantidadTXT_ventaKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1512,16 +1585,16 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton botonProveedor;
     private javax.swing.JButton botonVentas;
     private javax.swing.JLabel cantidad;
-    private javax.swing.JTextField cantidadTXT;
     private javax.swing.JTextField cantidadTXT_4;
+    private javax.swing.JTextField cantidadTXT_venta;
     private javax.swing.JLabel cantidad_panel_4;
     private javax.swing.JLabel codigo;
-    private javax.swing.JTextField codigoTXT;
     private javax.swing.JTextField codigoTXT_4;
+    private javax.swing.JTextField codigoTXT_venta;
     private javax.swing.JLabel codigo_panel_4;
     private javax.swing.JLabel descripcion;
-    private javax.swing.JTextField descripcionTXT;
     private javax.swing.JTextField descripcionTXT_4;
+    private javax.swing.JTextField descripcionTXT_venta;
     private javax.swing.JLabel descripcion_panel_4;
     private javax.swing.JTextField direccionCV_TXT;
     private javax.swing.JTextField direccionTXT_2;
@@ -1561,8 +1634,8 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JPanel panel_5;
     private javax.swing.JPanel panel_6;
     private javax.swing.JLabel precio;
-    private javax.swing.JTextField precioTXT;
     private javax.swing.JTextField precioTXT_4;
+    private javax.swing.JTextField precioTXT_venta;
     private javax.swing.JLabel precio_panel_4;
     private javax.swing.JComboBox<String> proveedorTXT_4;
     private javax.swing.JLabel proveedor_4;
@@ -1578,7 +1651,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel ruc_panel_3;
     private javax.swing.JLabel ruc_panel_6;
     private javax.swing.JLabel stock;
-    private javax.swing.JTextField stockTXT;
+    private javax.swing.JTextField stockTXT_venta;
     private javax.swing.JTable tabla_1;
     private javax.swing.JTable tabla_2;
     private javax.swing.JTable tabla_3;

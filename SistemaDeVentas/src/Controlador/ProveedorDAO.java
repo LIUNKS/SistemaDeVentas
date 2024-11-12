@@ -20,7 +20,7 @@ public class ProveedorDAO {
     Conexion conexion = new Conexion();
 
     //METODO PARA REGISTRAR LOS PROVEEDORES EN LA BASE DE DATOS
-    public boolean RegistrarProveedor(Proveedor proveedor) {
+    public boolean registrarProveedor(Proveedor proveedor) {
         String sql = "INSERT INTO proveedor (ruc, nombre, telefono, direccion, razon) VALUES (?, ?, ?, ?, ?)";
         try {
             

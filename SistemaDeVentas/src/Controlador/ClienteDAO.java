@@ -21,7 +21,7 @@ public class ClienteDAO {
     Conexion conexion = new Conexion();
     
     //METODO PARA REGISTRAR LOS CLIENTES EN LA BASE DE DATOS
-    public boolean RegistrarCliente(Cliente cliente){
+    public boolean registrarCliente(Cliente cliente){
         String sql = "INSERT INTO clientes (dni, nombre, telefono, direccion, razon) VALUES (?, ?, ?, ?, ?)";
         try {
             connection = conexion.getConnection();

@@ -328,23 +328,23 @@
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="codigo" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoTXT" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="codigoTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="descripcionTXT" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Component id="descripcionTXT_venta" min="-2" pref="262" max="-2" attributes="0"/>
                           <Component id="descripcion" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="57" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cantidad" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidadTXT" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="cantidadTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="precio" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="precioTXT" min="-2" pref="71" max="-2" attributes="0"/>
+                              <Component id="precioTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="idProductoNV_TXT" min="-2" pref="2" max="-2" attributes="0"/>
                           </Group>
@@ -352,7 +352,7 @@
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="stock" max="32767" attributes="0"/>
-                          <Component id="stockTXT" max="32767" attributes="0"/>
+                          <Component id="stockTXT_venta" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="eliminar" min="-2" max="-2" attributes="0"/>
@@ -404,14 +404,14 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="stockTXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="precioTXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cantidadTXT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stockTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="precioTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cantidadTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="idProductoNV_TXT" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="codigoTXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="descripcionTXT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="codigoTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="descripcionTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -465,12 +465,15 @@
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="codigoTXT">
+            <Component class="javax.swing.JTextField" name="codigoTXT_venta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="codigoTXT_ventaKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="descripcion">
               <Properties>
@@ -480,7 +483,7 @@
                 <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="descripcionTXT">
+            <Component class="javax.swing.JTextField" name="descripcionTXT_venta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
@@ -495,12 +498,15 @@
                 <Property name="text" type="java.lang.String" value="Cantidad"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="cantidadTXT">
+            <Component class="javax.swing.JTextField" name="cantidadTXT_venta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cantidadTXT_ventaKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="precio">
               <Properties>
@@ -510,7 +516,7 @@
                 <Property name="text" type="java.lang.String" value="Precio"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="precioTXT">
+            <Component class="javax.swing.JTextField" name="precioTXT_venta">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -526,7 +532,7 @@
                 <Property name="text" type="java.lang.String" value="Stock Disponible"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="stockTXT">
+            <Component class="javax.swing.JTextField" name="stockTXT_venta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
