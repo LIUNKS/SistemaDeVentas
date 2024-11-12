@@ -21,7 +21,7 @@ public class ProductoDAO {
     Conexion conexion = new Conexion();
     
     //METODO PARA REGISTRAR LOS PRODUCTOS EN LA BASE DE DATOS
-    public boolean RegistrarProducto(Producto producto) {
+    public boolean registrarProducto(Producto producto) {
         String sql = "INSERT INTO productos (codigo, nombre, proveedor, stock, precio) VALUES (?, ?, ?, ?, ?)";
         try {
             
@@ -52,7 +52,7 @@ public class ProductoDAO {
     }
     
     //METODO PARA CONSULTAR PROVEEDOR EN LA SECCION DE PRODUCTOS
-    public void ConsultarProveedor(JComboBox proveedor ){
+    public void consultarProveedor(JComboBox proveedor ){
         String sql = "SELECT nombre FROM proveedor";
         
         try {
@@ -147,5 +147,33 @@ public class ProductoDAO {
                 System.out.println(ex.toString());
             }
         }
+    }
+    
+    //METODO PARA BUSCAR EL PRODUCTO
+    public Producto buscarProducto(String codigo){
+        
+        Producto producto = new Producto();
+        String sql = "SELECT * FROM productos WHERE codigo = ?";
+        
+        try {
+            
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setString(1, codigo);
+            resultado = declaracion.executeQuery();
+            
+            if(resultado.next()){
+                producto.setNombre(resultado.getString("nombre"));
+                producto.setPrecio(resultado.getDouble("precio"));
+                producto.setStock(resultado.getInt("stock"));
+            }
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.toString());
+            
+        }
+        
+        return producto;
     }
 }
