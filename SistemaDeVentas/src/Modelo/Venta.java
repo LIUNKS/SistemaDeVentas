@@ -2,7 +2,7 @@ package Modelo;
 
 public class Venta {
     
-    //ATRIBUTOS DEL PROVEEDOR
+    //ATRIBUTOS DE VENTA
     private int id;
     private String cliente;
     private String vendedor;

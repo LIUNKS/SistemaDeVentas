@@ -9,10 +9,12 @@ import Controlador.ClienteDAO;
 import Controlador.ProductoDAO;
 import Controlador.ProveedorDAO;
 import Controlador.VentaDAO;
+import Modelo.Config;
 import Reportes.Excel;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
@@ -22,9 +24,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +52,7 @@ public class Sistema extends javax.swing.JFrame {
     Venta venta = new Venta();
     VentaDAO ventadao = new VentaDAO();
     Detalle detalle = new Detalle();
+    Config config = new Config();
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel modeloNVenta = new DefaultTableModel();
 
@@ -67,6 +72,7 @@ public class Sistema extends javax.swing.JFrame {
         telefonoCV_TXT_venta.setVisible(false);
         direccionCV_TXT_venta.setVisible(false);
         razonCV_TXT_venta.setVisible(false);
+        idConfigTXT.setVisible(false);
         AutoCompleteDecorator.decorate(proveedorTXT_4);
         productodao.consultarProveedor(proveedorTXT_4);
     }
@@ -126,6 +132,16 @@ public class Sistema extends javax.swing.JFrame {
         }
 
         tabla_4.setModel(modelo);
+    }
+    
+    public void listarConfig(){
+        config = productodao.buscarDatos();
+        idConfigTXT.setText("" + config.getId());
+        rucTXT_6.setText("" + config.getRuc());
+        nombreTXT_6.setText("" + config.getNombre());
+        telefonoTXT_6.setText("" + config.getTelefono());
+        direccionTXT_6.setText("" + config.getDireccion());
+        rSocialTXT_6.setText("" + config.getRazon());
     }
 
     public void limpiarTabla() {
@@ -253,6 +269,7 @@ public class Sistema extends javax.swing.JFrame {
         rSocial_panel_6 = new javax.swing.JLabel();
         rSocialTXT_6 = new javax.swing.JTextField();
         actualizar_panel_6 = new javax.swing.JButton();
+        idConfigTXT = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -309,11 +326,21 @@ public class Sistema extends javax.swing.JFrame {
         botonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/compras.png"))); // NOI18N
         botonVentas.setText("Ventas");
         botonVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVentasActionPerformed(evt);
+            }
+        });
 
         botonConfiguracion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/config.png"))); // NOI18N
         botonConfiguracion.setText("Configuración");
         botonConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonConfiguracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConfiguracionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
@@ -1132,15 +1159,16 @@ public class Sistema extends javax.swing.JFrame {
         panel_5.setLayout(panel_5Layout);
         panel_5Layout.setHorizontalGroup(
             panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_5Layout.createSequentialGroup()
+            .addGroup(panel_5Layout.createSequentialGroup()
                 .addContainerGap(96, Short.MAX_VALUE)
-                .addGroup(panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_5Layout.createSequentialGroup()
-                        .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(idVentasTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(idVentasTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(742, 742, 742))
+            .addGroup(panel_5Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_5Layout.setVerticalGroup(
             panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1149,8 +1177,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                     .addComponent(idVentasTXT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         body.addTab("Ventas", panel_5);
@@ -1183,40 +1212,41 @@ public class Sistema extends javax.swing.JFrame {
         panel_6.setLayout(panel_6Layout);
         panel_6Layout.setHorizontalGroup(
             panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_6Layout.createSequentialGroup()
-                .addComponent(titulo_tabla_6, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panel_6Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ruc_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(direccion_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(direccionTXT_6)
-                    .addComponent(rucTXT_6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(101, 101, 101)
-                .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rSocialTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rSocial_panel_6)
-                    .addGroup(panel_6Layout.createSequentialGroup()
-                        .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nombre_panel_6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreTXT_6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(100, 100, 100)
-                        .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(telefono_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telefonoTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(actualizar_panel_6)
                 .addGap(377, 377, 377))
+            .addGroup(panel_6Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idConfigTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_6Layout.createSequentialGroup()
+                        .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ruc_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccion_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccionTXT_6)
+                            .addComponent(rucTXT_6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(101, 101, 101)
+                        .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rSocialTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rSocial_panel_6)
+                            .addGroup(panel_6Layout.createSequentialGroup()
+                                .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nombre_panel_6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreTXT_6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(100, 100, 100)
+                                .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(telefono_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(telefonoTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(75, Short.MAX_VALUE))
+            .addComponent(titulo_tabla_6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel_6Layout.setVerticalGroup(
             panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addComponent(titulo_tabla_6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(38, 38, 38)
                 .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ruc_panel_6)
                     .addComponent(nombre_panel_6)
@@ -1237,7 +1267,9 @@ public class Sistema extends javax.swing.JFrame {
                 .addGroup(panel_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rSocialTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(direccionTXT_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                .addGap(32, 32, 32)
+                .addComponent(idConfigTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(actualizar_panel_6)
                 .addContainerGap(177, Short.MAX_VALUE))
         );
@@ -1639,6 +1671,15 @@ public class Sistema extends javax.swing.JFrame {
         limpiarProducto();
     }//GEN-LAST:event_botonNuevo_4ActionPerformed
 
+    private void botonConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfiguracionActionPerformed
+        listarConfig();
+        body.setSelectedIndex(5);
+    }//GEN-LAST:event_botonConfiguracionActionPerformed
+
+    private void botonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVentasActionPerformed
+        body.setSelectedIndex(4);
+    }//GEN-LAST:event_botonVentasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1722,6 +1763,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton eliminar;
     private javax.swing.JPanel header;
     private javax.swing.JTextField idClienteTXT;
+    private javax.swing.JTextField idConfigTXT;
     private javax.swing.JTextField idProductoNV_TXT;
     private javax.swing.JTextField idProductoTXT;
     private javax.swing.JTextField idProveedorTXT;
@@ -1825,9 +1867,8 @@ public class Sistema extends javax.swing.JFrame {
 
     private void limpiarTablaVenta() {
         modeloNVenta = (DefaultTableModel) tabla_1.getModel();
-        int fila = tabla_1.getRowCount();
-        for (int i = 0; i < fila; i++) {
-            modeloNVenta.removeRow(i);
+        while (modeloNVenta.getRowCount() > 0) {
+            modeloNVenta.removeRow(0);
         }
     }
 
@@ -1886,18 +1927,19 @@ public class Sistema extends javax.swing.JFrame {
 
     private void pdf() {
         try {
+            int id = ventadao.IdVenta();
             FileOutputStream archivo;
-            File file = new File("src/Documentos/venta.pdf");
+            File file = new File("src/Documentos/Venta" + id + ".pdf");
             archivo = new FileOutputStream(file);
             Document documento = new Document();
             PdfWriter.getInstance(documento, archivo);
             documento.open();
             Image imagen = Image.getInstance("src/Imagenes/LogoFerreteria.png");
             Paragraph fecha = new Paragraph();
-            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLACK);
             fecha.add(Chunk.NEWLINE);
             Date date = new Date();
-            fecha.add("Factura: 1\n" + "Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+            fecha.add("Factura: " + id + "\nFecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
 
             PdfPTable encabezado = new PdfPTable(4);
             encabezado.setWidthPercentage(100);
@@ -1907,11 +1949,11 @@ public class Sistema extends javax.swing.JFrame {
             encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
 
             encabezado.addCell(imagen);
-            String ruc = "20107510398";
-            String nombreEmpresa = "Gumisa Distribuciones SAC";
-            String telefono = "934541875";
-            String direccion = "Av. San Bernardo Nro. 234";
-            String razonSocial = "Gumisa Distribuciones SAC";
+            String ruc = "Hola";
+            String nombreEmpresa = nombreTXT_6.getText();
+            String telefono = telefonoTXT_6.getText();
+            String direccion = direccionTXT_6.getText();
+            String razonSocial = rSocialTXT_6.getText();
 
             encabezado.addCell("");
             encabezado.addCell("Ruc : " + ruc
@@ -1924,7 +1966,10 @@ public class Sistema extends javax.swing.JFrame {
 
             Paragraph clienteDocumento = new Paragraph();
             clienteDocumento.add(Chunk.NEWLINE);
-            clienteDocumento.add("Datos del cliente" + "\n\n");
+            clienteDocumento.add("""
+                                 Datos del cliente
+                                 
+                                 """);
             documento.add(clienteDocumento);
 
             //DATOS DEL CLIENTE PARA EL PDF
@@ -1935,14 +1980,18 @@ public class Sistema extends javax.swing.JFrame {
             tablaCliente.setWidths(columnaCliente);
             tablaCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-            PdfPCell clienteUno = new PdfPCell(new Phrase("DNI/RUC"));
-            PdfPCell clienteDos = new PdfPCell(new Phrase("Nombre"));
-            PdfPCell clienteTres = new PdfPCell(new Phrase("Telefono"));
-            PdfPCell clienteCuatro = new PdfPCell(new Phrase("Direción"));
+            PdfPCell clienteUno = new PdfPCell(new Phrase("DNI/RUC", negrita));
+            PdfPCell clienteDos = new PdfPCell(new Phrase("Nombre", negrita));
+            PdfPCell clienteTres = new PdfPCell(new Phrase("Telefono", negrita));
+            PdfPCell clienteCuatro = new PdfPCell(new Phrase("Direción", negrita));
             clienteUno.setBorder(0);
             clienteDos.setBorder(0);
             clienteTres.setBorder(0);
             clienteCuatro.setBorder(0);
+            clienteUno.setBackgroundColor(BaseColor.ORANGE);
+            clienteDos.setBackgroundColor(BaseColor.ORANGE);
+            clienteTres.setBackgroundColor(BaseColor.ORANGE);
+            clienteCuatro.setBackgroundColor(BaseColor.ORANGE);
             tablaCliente.addCell(clienteUno);
             tablaCliente.addCell(clienteDos);
             tablaCliente.addCell(clienteTres);
@@ -1959,18 +2008,22 @@ public class Sistema extends javax.swing.JFrame {
             PdfPTable tablaProducto = new PdfPTable(4);
             tablaProducto.setWidthPercentage(100);
             tablaProducto.getDefaultCell().setBorder(0);
-            float[] columnaProducto = new float[]{20f, 50f, 30f, 40f};
+            float[] columnaProducto = new float[]{10f, 50f, 15f, 20f};
             tablaCliente.setWidths(columnaProducto);
             tablaCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-            PdfPCell productoUno = new PdfPCell(new Phrase("Cantidad"));
-            PdfPCell productoDos = new PdfPCell(new Phrase("Descripción"));
-            PdfPCell productoTres = new PdfPCell(new Phrase("Precio Unitario"));
-            PdfPCell productoCuatro = new PdfPCell(new Phrase("Precio Total"));
+            PdfPCell productoUno = new PdfPCell(new Phrase("Cantidad", negrita));
+            PdfPCell productoDos = new PdfPCell(new Phrase("Descripción", negrita));
+            PdfPCell productoTres = new PdfPCell(new Phrase("Precio Unitario", negrita));
+            PdfPCell productoCuatro = new PdfPCell(new Phrase("Precio Total", negrita));
             productoUno.setBorder(0);
             productoDos.setBorder(0);
             productoTres.setBorder(0);
             productoCuatro.setBorder(0);
+            productoUno.setBackgroundColor(BaseColor.ORANGE);
+            productoDos.setBackgroundColor(BaseColor.ORANGE);
+            productoTres.setBackgroundColor(BaseColor.ORANGE);
+            productoCuatro.setBackgroundColor(BaseColor.ORANGE);
             tablaProducto.addCell(productoUno);
             tablaProducto.addCell(productoDos);
             tablaProducto.addCell(productoTres);
@@ -1985,12 +2038,37 @@ public class Sistema extends javax.swing.JFrame {
                 tablaProducto.addCell(precioProductos);
                 tablaProducto.addCell(totalPrecio);
             }
-            documento.add(tablaProducto);
 
+            //AGREGAR SECCION DEL PRODUCTO AL ARCHIVO
+            documento.add(tablaProducto);
+            
+            Paragraph informacionRecibo = new Paragraph();
+            informacionRecibo.add(Chunk.NEWLINE);
+            informacionRecibo.add("Total a pagar: " + totalPagar);
+            informacionRecibo.setAlignment(Element.ALIGN_RIGHT);
+            documento.add(informacionRecibo);
+            
+            Paragraph firma = new Paragraph();
+            firma.add(Chunk.NEWLINE);
+            firma.add("Cancelación & Firma \n\n\n\n");
+            firma.add("---------------------------");
+            firma.setAlignment(Element.ALIGN_CENTER);
+            documento.add(firma);
+
+            Paragraph mensaje = new Paragraph();
+            mensaje.add(Chunk.NEWLINE);
+            mensaje.add("Gracias por su compra");
+            mensaje.setAlignment(Element.ALIGN_CENTER);
+            documento.add(mensaje);
+            
             documento.close();
             archivo.close();
+            Desktop.getDesktop().open(file);
 
-        } catch (Exception e) {
+        } catch (DocumentException | IOException e) {
+            
+            System.out.println(e.toString());
+            
         }
     }
 }

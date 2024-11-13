@@ -177,6 +177,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonVentasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonConfiguracion">
           <Properties>
@@ -191,6 +194,9 @@
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonConfiguracionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -1582,17 +1588,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace pref="96" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="botonPDF" min="-2" pref="53" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="idVentasTXT" min="-2" pref="11" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="tabla_ventas" min="-2" pref="818" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="botonPDF" min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="idVentasTXT" min="-2" pref="11" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="742" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="tabla_ventas" min="-2" pref="818" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1604,8 +1610,9 @@
                           <Component id="botonPDF" pref="41" max="32767" attributes="0"/>
                           <Component id="idVentasTXT" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="36" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="tabla_ventas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1682,49 +1689,51 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="titulo_tabla_6" min="-2" pref="900" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ruc_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                          <Component id="direccion_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                          <Component id="direccionTXT_6" max="32767" attributes="0"/>
-                          <Component id="rucTXT_6" alignment="1" min="-2" pref="189" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rSocialTXT_6" min="-2" pref="190" max="-2" attributes="0"/>
-                          <Component id="rSocial_panel_6" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="nombre_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                  <Component id="nombreTXT_6" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="telefono_panel_6" min="-2" pref="87" max="-2" attributes="0"/>
-                                  <Component id="telefonoTXT_6" min="-2" pref="190" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="actualizar_panel_6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="idConfigTXT" min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="ruc_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="direccion_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                  <Component id="direccionTXT_6" max="32767" attributes="0"/>
+                                  <Component id="rucTXT_6" alignment="1" min="-2" pref="189" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="rSocialTXT_6" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <Component id="rSocial_panel_6" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="nombre_panel_6" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                                          <Component id="nombreTXT_6" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="telefono_panel_6" min="-2" pref="87" max="-2" attributes="0"/>
+                                          <Component id="telefonoTXT_6" min="-2" pref="190" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="titulo_tabla_6" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="titulo_tabla_6" min="-2" pref="67" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ruc_panel_6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nombre_panel_6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1751,7 +1760,9 @@
                           <Component id="rSocialTXT_6" min="-2" max="-2" attributes="0"/>
                           <Component id="direccionTXT_6" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="idConfigTXT" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="actualizar_panel_6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="177" max="32767" attributes="0"/>
                   </Group>
@@ -1831,6 +1842,8 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="idConfigTXT">
             </Component>
           </SubComponents>
         </Container>

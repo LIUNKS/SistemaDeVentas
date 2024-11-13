@@ -2,7 +2,7 @@ package Modelo;
 
 public class Detalle {
 
-    //ATRIBUTOS DEL CLIENTE
+    //ATRIBUTOS DE DETALLE
     private int id;
     private String cod_pro;
     private int cantidad;
