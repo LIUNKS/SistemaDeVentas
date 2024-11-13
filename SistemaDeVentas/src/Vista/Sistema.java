@@ -1,11 +1,14 @@
 package Vista;
 
 import Modelo.Cliente;
+import Modelo.Producto;
+import Modelo.Proveedor;
+import Modelo.Venta;
+import Modelo.Detalle;
 import Controlador.ClienteDAO;
 import Controlador.ProductoDAO;
 import Controlador.ProveedorDAO;
-import Modelo.Producto;
-import Modelo.Proveedor;
+import Controlador.VentaDAO;
 import Reportes.Excel;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -27,7 +30,11 @@ public class Sistema extends javax.swing.JFrame {
     ProveedorDAO proveedordao = new ProveedorDAO();
     Producto producto = new Producto();
     ProductoDAO productodao = new ProductoDAO();
+    Venta venta = new Venta();
+    VentaDAO ventadao = new VentaDAO();
+    Detalle detalle = new Detalle();
     DefaultTableModel modelo = new DefaultTableModel();
+    
     //VARIABLES PARA LA TABLA NUEVA VENTA
     int item;
     double totalPagar = 0.00;
@@ -156,6 +163,7 @@ public class Sistema extends javax.swing.JFrame {
         direccionCV_TXT_venta = new javax.swing.JTextField();
         razonCV_TXT_venta = new javax.swing.JTextField();
         idProductoNV_TXT = new javax.swing.JTextField();
+        vendedorTXT_venta = new javax.swing.JLabel();
         panel_2 = new javax.swing.JPanel();
         dni_panel_2 = new javax.swing.JLabel();
         dniTXT_2 = new javax.swing.JTextField();
@@ -245,6 +253,11 @@ public class Sistema extends javax.swing.JFrame {
         botonNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Nventa.png"))); // NOI18N
         botonNuevaVenta.setText("Nueva Venta");
         botonNuevaVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonNuevaVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevaVentaActionPerformed(evt);
+            }
+        });
 
         botonClientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clientes.png"))); // NOI18N
@@ -484,6 +497,11 @@ public class Sistema extends javax.swing.JFrame {
 
         imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
         imprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirActionPerformed(evt);
+            }
+        });
 
         total.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         total.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/money.png"))); // NOI18N
@@ -492,6 +510,8 @@ public class Sistema extends javax.swing.JFrame {
         total_precio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         total_precio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total_precio.setText("-----");
+
+        vendedorTXT_venta.setText("vendedor");
 
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
@@ -513,9 +533,11 @@ public class Sistema extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(direccionCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(vendedorTXT_venta))
                             .addComponent(nombre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                         .addComponent(imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(94, 94, 94)
                         .addComponent(total)
@@ -581,6 +603,11 @@ public class Sistema extends javax.swing.JFrame {
                 .addComponent(tabla_nuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(total)
+                            .addComponent(total_precio)))
+                    .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_1Layout.createSequentialGroup()
@@ -593,13 +620,9 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(nombreTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(telefonoCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(direccionCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(imprimir)))
-                    .addGroup(panel_1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(total)
-                            .addComponent(total_precio))))
+                                    .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(vendedorTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(imprimir))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -1519,7 +1542,7 @@ public class Sistema extends javax.swing.JFrame {
                 int stockVenta = Integer.parseInt(stockTXT_venta.getText());
                 if (stockVenta >= cantidadVenta) {
                     item = item + 1;
-                    modelo = (DefaultTableModel) tabla_1.getModel();
+                    DefaultTableModel modeloNVenta = (DefaultTableModel) tabla_1.getModel();
                     for (int i = 0; i < tabla_1.getRowCount(); i++) {
                         if (tabla_1.getValueAt(i, 1).equals(descripcionTXT_venta.getText())) {
                             JOptionPane.showMessageDialog(null, "El producto ya está registrado");
@@ -1539,8 +1562,8 @@ public class Sistema extends javax.swing.JFrame {
                     objetoVenta [2] = listaVenta.get(3);
                     objetoVenta [3] = listaVenta.get(4);
                     objetoVenta [4] = listaVenta.get(5);
-                    modelo.addRow(objetoVenta);
-                    tabla_1.setModel(modelo);
+                    modeloNVenta.addRow(objetoVenta);
+                    tabla_1.setModel(modeloNVenta);
                     totalPagar();
                     limpiarVenta();
                     codigoTXT_venta.requestFocus();
@@ -1564,7 +1587,6 @@ public class Sistema extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             if (!"".equals(dniTXT_venta.getText())) {
                 int dniVentas = Integer.parseInt(dniTXT_venta.getText());
-                System.out.println(dniVentas);
                 cliente = clientedao.buscarCliente(dniVentas);
                 if (cliente.getNombre() != null) {
                     nombreTXT_venta.setText("" + cliente.getNombre());
@@ -1578,6 +1600,16 @@ public class Sistema extends javax.swing.JFrame {
             }    
         }
     }//GEN-LAST:event_dniTXT_ventaKeyPressed
+
+    private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
+        registrarVenta();
+        registrarDetalle();
+    }//GEN-LAST:event_imprimirActionPerformed
+
+    private void botonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentaActionPerformed
+     //SELECCIONA LA TABLA 1 AL PRESIONAR EL BOTON NUEVA VENTA
+        body.setSelectedIndex(0);
+    }//GEN-LAST:event_botonNuevaVentaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1724,6 +1756,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel titulo_tabla_6;
     private javax.swing.JLabel total;
     private javax.swing.JLabel total_precio;
+    private javax.swing.JLabel vendedorTXT_venta;
     // End of variables declaration//GEN-END:variables
     
     private void limpiarCliente() {
@@ -1759,6 +1792,7 @@ public class Sistema extends javax.swing.JFrame {
         cantidadTXT_venta.setText("");
         stockTXT_venta.setText("");
         precioTXT_venta.setText("");
+        idVentasTXT.setText("");
     }
     
     private void totalPagar(){
@@ -1770,5 +1804,29 @@ public class Sistema extends javax.swing.JFrame {
         }
         
         total_precio.setText(String.format("%.2f", totalPagar));
+    }
+    
+    private void registrarVenta(){
+        String clienteVenta = nombreTXT_venta.getText();
+        String vendedorVenta = vendedorTXT_venta.getText();
+        double montoVenta = totalPagar;
+        venta.setCliente(clienteVenta);
+        venta.setVendedor(vendedorVenta);
+        venta.setTotal(montoVenta);
+        ventadao.registrarVenta(venta);
+    }
+    
+    private void registrarDetalle(){
+        int id = ventadao.IdVenta();
+        for (int i = 0; i < tabla_1.getRowCount(); i++) {
+            String codigoDetalle = tabla_1.getValueAt(i, 0).toString();
+            int cantidadDetalle = Integer.parseInt(tabla_1.getValueAt(i, 2).toString());
+            double precioDetalle = Double.parseDouble(tabla_1.getValueAt(i, 3).toString());
+            detalle.setCod_pro(codigoDetalle);
+            detalle.setCantidad(cantidadDetalle);
+            detalle.setPrecio(precioDetalle);
+            detalle.setId(id);
+            ventadao.registrarDetalle(detalle);
+        }
     }
 }
