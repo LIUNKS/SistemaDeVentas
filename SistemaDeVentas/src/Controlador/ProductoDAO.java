@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Conexion;
+import Modelo.Config;
 import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -175,5 +176,35 @@ public class ProductoDAO {
         }
         
         return producto;
+    }
+    
+    //METODO PARA BUSCAR EL PRODUCTO
+    public Config buscarDatos(){
+        
+        Config config = new Config();
+        String sql = "SELECT * FROM config";
+        
+        try {
+            
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            resultado = declaracion.executeQuery();
+            
+            if(resultado.next()){
+                config.setId(resultado.getInt("id"));
+                config.setRuc(resultado.getInt("ruc"));
+                config.setNombre(resultado.getString("nombre"));
+                config.setTelefono(resultado.getInt("telefono"));
+                config.setDireccion(resultado.getString("direccion"));
+                config.setRazon(resultado.getString("razon"));
+            }
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.toString());
+            
+        }
+        
+        return config;
     }
 }
