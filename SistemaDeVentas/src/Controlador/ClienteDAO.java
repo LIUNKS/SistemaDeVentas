@@ -122,4 +122,33 @@ public class ClienteDAO {
             }
         }
     }
+    
+    //METODO PARA BUSCAR EL CLIENTE EN LA TABLA DE NUEVA VENTA
+    public Cliente buscarCliente(int dni){
+        Cliente cliente = new Cliente();
+        String sql = "SELECT * FROM clientes WHERE dni = ?";
+        
+        try {
+            
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, dni);
+            resultado = declaracion.executeQuery();
+            
+            if(resultado.next()){
+                cliente.setNombre(resultado.getString("nombre"));
+                cliente.setTelefono(resultado.getInt("telefono"));
+                cliente.setDireccion(resultado.getString("direccion"));
+                cliente.setRazonSocial(resultado.getString("razon"));
+            }
+            
+        } catch (SQLException e) {
+            
+            System.out.println(e.toString());
+            
+        }
+        
+        return cliente;
+        
+    }
 }

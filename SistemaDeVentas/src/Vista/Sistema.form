@@ -325,66 +325,73 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codigo" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="descripcionTXT_venta" min="-2" pref="262" max="-2" attributes="0"/>
-                          <Component id="descripcion" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cantidad" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidadTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="precio" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="precioTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="idProductoNV_TXT" min="-2" pref="2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="stock" max="32767" attributes="0"/>
-                          <Component id="stockTXT_venta" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="eliminar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="tabla_nuevaVenta" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dni" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dniTXT" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="nombreTXT" min="-2" pref="110" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dni" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dniTXT_venta" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="telefonoCV_TXT" min="-2" pref="9" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="nombreTXT_venta" min="-2" pref="110" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="telefonoCV_TXT_venta" min="-2" pref="9" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="direccionCV_TXT_venta" min="-2" pref="7" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="razonCV_TXT_venta" min="-2" pref="9" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="nombre" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="imprimir" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                              <Component id="total" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="direccionCV_TXT" min="-2" pref="7" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="razonCV_TXT" min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="total_precio" min="-2" pref="103" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="nombre" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="tabla_nuevaVenta" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="codigo" min="-2" max="-2" attributes="0"/>
+                                          <Component id="codigoTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="descripcionTXT_venta" min="-2" pref="262" max="-2" attributes="0"/>
+                                          <Component id="descripcion" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cantidad" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cantidadTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="precio" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="precioTXT_venta" min="-2" pref="71" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                              <Component id="idProductoNV_TXT" min="-2" pref="2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="stock" max="32767" attributes="0"/>
+                                          <Component id="stockTXT_venta" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="eliminar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="imprimir" min="-2" pref="90" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
-                      <Component id="total" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="total_precio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -433,11 +440,11 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="dniTXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="nombreTXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="telefonoCV_TXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="direccionCV_TXT" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="razonCV_TXT" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dniTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="telefonoCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="direccionCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="razonCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="imprimir" min="-2" max="-2" attributes="0"/>
@@ -548,6 +555,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="tabla_nuevaVenta">
               <AuxValues>
@@ -614,12 +624,15 @@
                 <Property name="text" type="java.lang.String" value="DNI / RUC"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="dniTXT">
+            <Component class="javax.swing.JTextField" name="dniTXT_venta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dniTXT_ventaKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="nombre">
               <Properties>
@@ -629,7 +642,7 @@
                 <Property name="text" type="java.lang.String" value="NOMBRE"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="nombreTXT">
+            <Component class="javax.swing.JTextField" name="nombreTXT_venta">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -663,14 +676,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="-----"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="telefonoCV_TXT">
+            <Component class="javax.swing.JTextField" name="telefonoCV_TXT_venta">
             </Component>
-            <Component class="javax.swing.JTextField" name="direccionCV_TXT">
+            <Component class="javax.swing.JTextField" name="direccionCV_TXT_venta">
             </Component>
-            <Component class="javax.swing.JTextField" name="razonCV_TXT">
+            <Component class="javax.swing.JTextField" name="razonCV_TXT_venta">
             </Component>
             <Component class="javax.swing.JTextField" name="idProductoNV_TXT">
             </Component>
