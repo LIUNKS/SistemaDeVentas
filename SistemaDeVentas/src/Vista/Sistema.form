@@ -350,7 +350,7 @@
                                   </Group>
                                   <Component id="nombre" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="84" max="32767" attributes="0"/>
+                              <EmptySpace pref="134" max="32767" attributes="0"/>
                               <Component id="imprimir" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                               <Component id="total" min="-2" max="-2" attributes="0"/>
@@ -451,13 +451,15 @@
                                           <Component id="nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="dniTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="nombreTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="telefonoCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="direccionCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="razonCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="vendedorTXT_venta" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="dniTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="nombreTXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="telefonoCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="direccionCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="razonCV_TXT_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Component id="imprimir" min="-2" max="-2" attributes="0"/>
@@ -698,9 +700,6 @@
             <Component class="javax.swing.JTextField" name="idProductoNV_TXT">
             </Component>
             <Component class="javax.swing.JLabel" name="vendedorTXT_venta">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="vendedor"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -1552,6 +1551,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonNuevo_4ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="botonExcel_4">
               <Properties>
@@ -1616,7 +1618,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="tabla_5">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">

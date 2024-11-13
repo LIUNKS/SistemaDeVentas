@@ -17,7 +17,7 @@ public class LoginDAO {
     //INSTANCIA
     Conexion conexion = new Conexion();
     
-    
+    //METODO PARA INICIAR EL LOGIN
     public Login log(String correo, String pass){
         //INSTANCIA
         Login login = new Login();

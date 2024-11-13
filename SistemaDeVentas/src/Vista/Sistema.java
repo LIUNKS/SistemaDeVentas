@@ -10,9 +10,24 @@ import Controlador.ProductoDAO;
 import Controlador.ProveedorDAO;
 import Controlador.VentaDAO;
 import Reportes.Excel;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,11 +49,12 @@ public class Sistema extends javax.swing.JFrame {
     VentaDAO ventadao = new VentaDAO();
     Detalle detalle = new Detalle();
     DefaultTableModel modelo = new DefaultTableModel();
-    
+    DefaultTableModel modeloNVenta = new DefaultTableModel();
+
     //VARIABLES PARA LA TABLA NUEVA VENTA
     int item;
     double totalPagar = 0.00;
-    
+
     public Sistema() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
@@ -73,7 +89,7 @@ public class Sistema extends javax.swing.JFrame {
 
         tabla_2.setModel(modelo);
     }
-    
+
     public void listarProveedor() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA PROVEEDOR
         @SuppressWarnings("unchecked")
@@ -92,7 +108,7 @@ public class Sistema extends javax.swing.JFrame {
 
         tabla_3.setModel(modelo);
     }
-    
+
     public void listarProducto() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA PROVEEDOR
         @SuppressWarnings("unchecked")
@@ -221,7 +237,7 @@ public class Sistema extends javax.swing.JFrame {
         botonExcel_4 = new javax.swing.JButton();
         panel_5 = new javax.swing.JPanel();
         tabla_ventas = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_5 = new javax.swing.JTable();
         botonPDF = new javax.swing.JButton();
         idVentasTXT = new javax.swing.JTextField();
         panel_6 = new javax.swing.JPanel();
@@ -511,8 +527,6 @@ public class Sistema extends javax.swing.JFrame {
         total_precio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total_precio.setText("-----");
 
-        vendedorTXT_venta.setText("vendedor");
-
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
         panel_1Layout.setHorizontalGroup(
@@ -537,7 +551,7 @@ public class Sistema extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(vendedorTXT_venta))
                             .addComponent(nombre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addComponent(imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(94, 94, 94)
                         .addComponent(total)
@@ -615,13 +629,14 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(dni)
                                     .addComponent(nombre))
                                 .addGap(4, 4, 4)
-                                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(dniTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombreTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(telefonoCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(direccionCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(vendedorTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(vendedorTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(dniTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(nombreTXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(telefonoCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(direccionCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(razonCV_TXT_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(imprimir))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -994,6 +1009,11 @@ public class Sistema extends javax.swing.JFrame {
 
         botonNuevo_4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
         botonNuevo_4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonNuevo_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevo_4ActionPerformed(evt);
+            }
+        });
 
         botonExcel_4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/excel.png"))); // NOI18N
         botonExcel_4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1087,7 +1107,7 @@ public class Sistema extends javax.swing.JFrame {
 
         body.addTab("Productos", panel_4);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1098,12 +1118,12 @@ public class Sistema extends javax.swing.JFrame {
                 "ID", "CLIENTE", "VENDEDOR", "TOTAL"
             }
         ));
-        tabla_ventas.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tabla_ventas.setViewportView(tabla_5);
+        if (tabla_5.getColumnModel().getColumnCount() > 0) {
+            tabla_5.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tabla_5.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tabla_5.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tabla_5.getColumnModel().getColumn(3).setPreferredWidth(60);
         }
 
         botonPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf.png"))); // NOI18N
@@ -1437,10 +1457,10 @@ public class Sistema extends javax.swing.JFrame {
     private void botonGuardar_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardar_4ActionPerformed
         //VALIDAR EL INGRESO DE DATOS EN LA TABLA DE PRODUCTOS
         if (!"".equals(codigoTXT_4.getText())
-            && !"".equals(descripcionTXT_4.getText())
-            && !"".equals(cantidadTXT_4.getText())
-            && !"".equals(precioTXT_4.getText())
-            && !"".equals(proveedorTXT_4.getSelectedItem())) {
+                && !"".equals(descripcionTXT_4.getText())
+                && !"".equals(cantidadTXT_4.getText())
+                && !"".equals(precioTXT_4.getText())
+                && !"".equals(proveedorTXT_4.getSelectedItem())) {
             producto.setCodigo((codigoTXT_4.getText()));
             producto.setNombre((descripcionTXT_4.getText()));
             producto.setProveedor((proveedorTXT_4.getSelectedItem().toString()));
@@ -1511,15 +1531,15 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_botonExcel_4ActionPerformed
 
     private void codigoTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoTXT_ventaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!"".equals(codigoTXT_venta.getText())) {
                 String codigoVenta = codigoTXT_venta.getText();
                 producto = productodao.buscarProducto(codigoVenta);
                 if (producto.getNombre() != null) {
                     descripcionTXT_venta.setText("" + producto.getNombre());
                     precioTXT_venta.setText("" + producto.getPrecio());
-                    stockTXT_venta.setText("" +producto.getStock());
-                    cantidadTXT_venta.requestFocus(); 
+                    stockTXT_venta.setText("" + producto.getStock());
+                    cantidadTXT_venta.requestFocus();
                 } else {
                     limpiarVenta();
                     codigoTXT_venta.requestFocus();
@@ -1532,7 +1552,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_codigoTXT_ventaKeyPressed
 
     private void cantidadTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadTXT_ventaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!"".equals(cantidadTXT_venta.getText())) {
                 String codigoVenta = codigoTXT_venta.getText();
                 String descripcionVenta = descripcionTXT_venta.getText();
@@ -1542,7 +1562,7 @@ public class Sistema extends javax.swing.JFrame {
                 int stockVenta = Integer.parseInt(stockTXT_venta.getText());
                 if (stockVenta >= cantidadVenta) {
                     item = item + 1;
-                    DefaultTableModel modeloNVenta = (DefaultTableModel) tabla_1.getModel();
+                    modeloNVenta = (DefaultTableModel) tabla_1.getModel();
                     for (int i = 0; i < tabla_1.getRowCount(); i++) {
                         if (tabla_1.getValueAt(i, 1).equals(descripcionTXT_venta.getText())) {
                             JOptionPane.showMessageDialog(null, "El producto ya está registrado");
@@ -1556,12 +1576,12 @@ public class Sistema extends javax.swing.JFrame {
                     listaVenta.add(cantidadVenta);
                     listaVenta.add(precioVenta);
                     listaVenta.add(totalVenta);
-                    Object [] objetoVenta = new Object[5];
-                    objetoVenta [0] = listaVenta.get(1);
-                    objetoVenta [1] = listaVenta.get(2);
-                    objetoVenta [2] = listaVenta.get(3);
-                    objetoVenta [3] = listaVenta.get(4);
-                    objetoVenta [4] = listaVenta.get(5);
+                    Object[] objetoVenta = new Object[5];
+                    objetoVenta[0] = listaVenta.get(1);
+                    objetoVenta[1] = listaVenta.get(2);
+                    objetoVenta[2] = listaVenta.get(3);
+                    objetoVenta[3] = listaVenta.get(4);
+                    objetoVenta[4] = listaVenta.get(5);
                     modeloNVenta.addRow(objetoVenta);
                     tabla_1.setModel(modeloNVenta);
                     totalPagar();
@@ -1584,7 +1604,7 @@ public class Sistema extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void dniTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniTXT_ventaKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!"".equals(dniTXT_venta.getText())) {
                 int dniVentas = Integer.parseInt(dniTXT_venta.getText());
                 cliente = clientedao.buscarCliente(dniVentas);
@@ -1597,19 +1617,27 @@ public class Sistema extends javax.swing.JFrame {
                     dniTXT_venta.setText("");
                     JOptionPane.showMessageDialog(null, "El cliente no existe");
                 }
-            }    
+            }
         }
     }//GEN-LAST:event_dniTXT_ventaKeyPressed
 
     private void imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirActionPerformed
         registrarVenta();
         registrarDetalle();
+        actualizarStock();
+        pdf();
+        limpiarTablaVenta();
+        limpiarClienteVenta();
     }//GEN-LAST:event_imprimirActionPerformed
 
     private void botonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentaActionPerformed
-     //SELECCIONA LA TABLA 1 AL PRESIONAR EL BOTON NUEVA VENTA
+        //SELECCIONA LA TABLA 1 AL PRESIONAR EL BOTON NUEVA VENTA
         body.setSelectedIndex(0);
     }//GEN-LAST:event_botonNuevaVentaActionPerformed
+
+    private void botonNuevo_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevo_4ActionPerformed
+        limpiarProducto();
+    }//GEN-LAST:event_botonNuevo_4ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1699,7 +1727,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField idProveedorTXT;
     private javax.swing.JTextField idVentasTXT;
     private javax.swing.JButton imprimir;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel logoEmpresa;
     private javax.swing.JPanel navBar;
     private javax.swing.JLabel nombre;
@@ -1740,6 +1767,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTable tabla_2;
     private javax.swing.JTable tabla_3;
     private javax.swing.JTable tabla_4;
+    private javax.swing.JTable tabla_5;
     private javax.swing.JScrollPane tabla_clientes;
     private javax.swing.JScrollPane tabla_nuevaVenta;
     private javax.swing.JScrollPane tabla_productos;
@@ -1758,7 +1786,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel total_precio;
     private javax.swing.JLabel vendedorTXT_venta;
     // End of variables declaration//GEN-END:variables
-    
+
     private void limpiarCliente() {
         idClienteTXT.setText("");
         dniTXT_2.setText("");
@@ -1767,7 +1795,7 @@ public class Sistema extends javax.swing.JFrame {
         direccionTXT_2.setText("");
         rSocialTXT_2.setText("");
     }
-    
+
     private void limpiarProveedor() {
         idProveedorTXT.setText("");
         rucTXT_3.setText("");
@@ -1776,7 +1804,7 @@ public class Sistema extends javax.swing.JFrame {
         direccionTXT_3.setText("");
         rSocialTXT_3.setText("");
     }
-    
+
     private void limpiarProducto() {
         idProductoTXT.setText("");
         codigoTXT_4.setText("");
@@ -1785,8 +1813,8 @@ public class Sistema extends javax.swing.JFrame {
         precioTXT_4.setText("");
         proveedorTXT_4.setSelectedItem(null);
     }
-    
-    private void limpiarVenta(){
+
+    private void limpiarVenta() {
         codigoTXT_venta.setText("");
         descripcionTXT_venta.setText("");
         cantidadTXT_venta.setText("");
@@ -1794,19 +1822,35 @@ public class Sistema extends javax.swing.JFrame {
         precioTXT_venta.setText("");
         idVentasTXT.setText("");
     }
-    
-    private void totalPagar(){
+
+    private void limpiarTablaVenta() {
+        modeloNVenta = (DefaultTableModel) tabla_1.getModel();
+        int fila = tabla_1.getRowCount();
+        for (int i = 0; i < fila; i++) {
+            modeloNVenta.removeRow(i);
+        }
+    }
+
+    private void limpiarClienteVenta() {
+        dniTXT_venta.setText("");
+        nombreTXT_venta.setText("");
+        direccionCV_TXT_venta.setText("");
+        telefonoCV_TXT_venta.setText("");
+        razonCV_TXT_venta.setText("");
+    }
+
+    private void totalPagar() {
         totalPagar = 0.00;
         int numeroFila = tabla_1.getRowCount();
         for (int i = 0; i < numeroFila; i++) {
             double calcular = Double.parseDouble(String.valueOf(tabla_1.getModel().getValueAt(i, 4)));
             totalPagar = totalPagar + calcular;
         }
-        
+
         total_precio.setText(String.format("%.2f", totalPagar));
     }
-    
-    private void registrarVenta(){
+
+    private void registrarVenta() {
         String clienteVenta = nombreTXT_venta.getText();
         String vendedorVenta = vendedorTXT_venta.getText();
         double montoVenta = totalPagar;
@@ -1815,8 +1859,8 @@ public class Sistema extends javax.swing.JFrame {
         venta.setTotal(montoVenta);
         ventadao.registrarVenta(venta);
     }
-    
-    private void registrarDetalle(){
+
+    private void registrarDetalle() {
         int id = ventadao.IdVenta();
         for (int i = 0; i < tabla_1.getRowCount(); i++) {
             String codigoDetalle = tabla_1.getValueAt(i, 0).toString();
@@ -1827,6 +1871,126 @@ public class Sistema extends javax.swing.JFrame {
             detalle.setPrecio(precioDetalle);
             detalle.setId(id);
             ventadao.registrarDetalle(detalle);
+        }
+    }
+
+    private void actualizarStock() {
+        for (int i = 0; i < tabla_1.getRowCount(); i++) {
+            String codigoVenta = tabla_1.getValueAt(i, 0).toString();
+            int cantidadVenta = Integer.parseInt(tabla_1.getValueAt(i, 2).toString());
+            producto = productodao.buscarProducto(codigoVenta);
+            int stockActual = producto.getStock() - cantidadVenta;
+            ventadao.actualizarStock(stockActual, codigoVenta);
+        }
+    }
+
+    private void pdf() {
+        try {
+            FileOutputStream archivo;
+            File file = new File("src/Documentos/venta.pdf");
+            archivo = new FileOutputStream(file);
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, archivo);
+            documento.open();
+            Image imagen = Image.getInstance("src/Imagenes/LogoFerreteria.png");
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Factura: 1\n" + "Fecha: " + new SimpleDateFormat("dd-MM-yyyy").format(date) + "\n\n");
+
+            PdfPTable encabezado = new PdfPTable(4);
+            encabezado.setWidthPercentage(100);
+            encabezado.getDefaultCell().setBorder(0);
+            float[] columnaEncabezado = new float[]{20f, 30f, 70f, 40f};
+            encabezado.setWidths(columnaEncabezado);
+            encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            encabezado.addCell(imagen);
+            String ruc = "20107510398";
+            String nombreEmpresa = "Gumisa Distribuciones SAC";
+            String telefono = "934541875";
+            String direccion = "Av. San Bernardo Nro. 234";
+            String razonSocial = "Gumisa Distribuciones SAC";
+
+            encabezado.addCell("");
+            encabezado.addCell("Ruc : " + ruc
+                    + "\nNombre: " + nombreEmpresa
+                    + "\nTelefono: " + telefono
+                    + "\nDirección: " + direccion
+                    + "\nRazon: " + razonSocial);
+            encabezado.addCell(fecha);
+            documento.add(encabezado);
+
+            Paragraph clienteDocumento = new Paragraph();
+            clienteDocumento.add(Chunk.NEWLINE);
+            clienteDocumento.add("Datos del cliente" + "\n\n");
+            documento.add(clienteDocumento);
+
+            //DATOS DEL CLIENTE PARA EL PDF
+            PdfPTable tablaCliente = new PdfPTable(4);
+            tablaCliente.setWidthPercentage(100);
+            tablaCliente.getDefaultCell().setBorder(0);
+            float[] columnaCliente = new float[]{20f, 50f, 30f, 40f};
+            tablaCliente.setWidths(columnaCliente);
+            tablaCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            PdfPCell clienteUno = new PdfPCell(new Phrase("DNI/RUC"));
+            PdfPCell clienteDos = new PdfPCell(new Phrase("Nombre"));
+            PdfPCell clienteTres = new PdfPCell(new Phrase("Telefono"));
+            PdfPCell clienteCuatro = new PdfPCell(new Phrase("Direción"));
+            clienteUno.setBorder(0);
+            clienteDos.setBorder(0);
+            clienteTres.setBorder(0);
+            clienteCuatro.setBorder(0);
+            tablaCliente.addCell(clienteUno);
+            tablaCliente.addCell(clienteDos);
+            tablaCliente.addCell(clienteTres);
+            tablaCliente.addCell(clienteCuatro);
+            tablaCliente.addCell(dniTXT_venta.getText());
+            tablaCliente.addCell(nombreTXT_venta.getText());
+            tablaCliente.addCell(telefonoCV_TXT_venta.getText());
+            tablaCliente.addCell(direccionCV_TXT_venta.getText());
+
+            //AGREGAR SECCION AL DOCUMENTO
+            documento.add(tablaCliente);
+
+            //DATOS DEL PRODUCTO PARA EL PDF
+            PdfPTable tablaProducto = new PdfPTable(4);
+            tablaProducto.setWidthPercentage(100);
+            tablaProducto.getDefaultCell().setBorder(0);
+            float[] columnaProducto = new float[]{20f, 50f, 30f, 40f};
+            tablaCliente.setWidths(columnaProducto);
+            tablaCliente.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            PdfPCell productoUno = new PdfPCell(new Phrase("Cantidad"));
+            PdfPCell productoDos = new PdfPCell(new Phrase("Descripción"));
+            PdfPCell productoTres = new PdfPCell(new Phrase("Precio Unitario"));
+            PdfPCell productoCuatro = new PdfPCell(new Phrase("Precio Total"));
+            productoUno.setBorder(0);
+            productoDos.setBorder(0);
+            productoTres.setBorder(0);
+            productoCuatro.setBorder(0);
+            tablaProducto.addCell(productoUno);
+            tablaProducto.addCell(productoDos);
+            tablaProducto.addCell(productoTres);
+            tablaProducto.addCell(productoCuatro);
+            for (int i = 0; i < tabla_1.getRowCount(); i++) {
+                String productos = tabla_1.getValueAt(i, 1).toString();
+                String cantidadProductos = tabla_1.getValueAt(i, 2).toString();
+                String precioProductos = tabla_1.getValueAt(i, 3).toString();
+                String totalPrecio = tabla_1.getValueAt(i, 4).toString();
+                tablaProducto.addCell(cantidadProductos);
+                tablaProducto.addCell(productos);
+                tablaProducto.addCell(precioProductos);
+                tablaProducto.addCell(totalPrecio);
+            }
+            documento.add(tablaProducto);
+
+            documento.close();
+            archivo.close();
+
+        } catch (Exception e) {
         }
     }
 }
