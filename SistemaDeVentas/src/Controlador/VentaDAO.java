@@ -19,6 +19,7 @@ public class VentaDAO {
     //INSTANCIAS
     Conexion conexion = new Conexion();
     
+    //METODO PARA BUSCAR EL ID DE LA VENTA
     public int IdVenta(){
         int id = 0;
         String sql = "SELECT MAX(id) FROM ventas";
@@ -86,5 +87,21 @@ public class VentaDAO {
         }
         
         return respuesta;
+    }
+    
+    //ACTUALIZAR EL NUMERO DE STOCK DISPONIBLE LUEGO DE UNA VENTA
+    public boolean actualizarStock(int cantidad, String codigo){
+        String sql = "UPDATE productos SET stock = ? WHERE codigo = ?";
+        try {
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, cantidad);
+            declaracion.setString(2, codigo);
+            declaracion.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
     }
 }
