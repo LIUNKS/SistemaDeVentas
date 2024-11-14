@@ -5,41 +5,41 @@ import Controlador.LoginDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-public class LoginSystem extends javax.swing.JFrame {
+public class registroUsuario extends javax.swing.JFrame {
 
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
-    
+
     //INSTANCIAS NECESARIAS
     Login login = new Login();
     LoginDAO logindao = new LoginDAO();
-    
-    public LoginSystem() {
+
+    public registroUsuario() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
     }
-    
-    public void validar(){
+
+    public void validar() {
         //VALIDA QUE LOS DATOS INGRESADOS EN EL LOGIN SEAN IGUALES A LOS USUARIOS DE LA BASE DE DATOS
         String correo = userTxT.getText();
         String pass = String.valueOf(passwordTxT.getPassword());
-        
-        if (!"".equals(correo) || !"".equals(pass)){
- 
-            login = logindao.log(correo, pass);
-            if(login.getCorreo() != null && login.getPass() != null){
-                Sistema sistema = new Sistema();
-                sistema.setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "El correo o la contraseña que ingresaste son incorrectos. Por favor, inténtalo de nuevo");
-            }
-            
-        }
-    }
+        String nombre = nombreTXT.getText();
+        String rol = rolTXT.getSelectedItem().toString();
 
-    @SuppressWarnings("unchecked")
+        if (!"".equals(correo) || !"".equals(pass) || !"".equals(nombre)) {
+            login.setNombre(nombre);
+            login.setCorreo(correo);
+            login.setPass(pass);
+            login.setRol(rol);
+            logindao.registrar(login);
+            sistemaLogin iniciarLogin = new sistemaLogin();
+            iniciarLogin.setVisible(true);
+            dispose();
+        }
+    }    
+
+        @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -60,6 +60,11 @@ public class LoginSystem extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         separador_2 = new javax.swing.JSeparator();
         passwordTxT = new javax.swing.JPasswordField();
+        nombreLabel = new javax.swing.JLabel();
+        separador_4 = new javax.swing.JSeparator();
+        nombreTXT = new javax.swing.JTextField();
+        rolLabel = new javax.swing.JLabel();
+        rolTXT = new javax.swing.JComboBox<>();
         botonIniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,7 +138,7 @@ public class LoginSystem extends javax.swing.JFrame {
         );
         botonSalirLayout.setVerticalGroup(
             botonSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(botonSalirLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+            .addComponent(botonSalirLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
@@ -151,42 +156,42 @@ public class LoginSystem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 50));
+        background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 40));
 
         faviconEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         faviconEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FaviconFerreteria.png"))); // NOI18N
-        background.add(faviconEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 40, 40));
+        background.add(faviconEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 40, 40));
 
         titulo.setBackground(new java.awt.Color(255, 255, 255));
         titulo.setFont(new java.awt.Font("Roboto Medium", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(0, 0, 0));
-        titulo.setText("INICIAR SESIÓN");
-        background.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        titulo.setText("REGISTRAR USUARIO");
+        background.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
 
         userLabel.setBackground(new java.awt.Color(255, 255, 255));
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
-        userLabel.setText("USUARIO");
-        background.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
-        background.add(separador_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 257, 420, -1));
+        userLabel.setText("CORREO");
+        background.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        background.add(separador_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 420, -1));
 
         userTxT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         userTxT.setForeground(new java.awt.Color(153, 153, 153));
-        userTxT.setText("Ingrese su nombre de usuario");
+        userTxT.setText("Ingrese su correo electrónico");
         userTxT.setBorder(null);
         userTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 userTxTMousePressed(evt);
             }
         });
-        background.add(userTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 420, 30));
+        background.add(userTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 420, 30));
 
         passwordLabel.setBackground(new java.awt.Color(255, 255, 255));
         passwordLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(0, 0, 0));
         passwordLabel.setText("CONTRASEÑA");
-        background.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
-        background.add(separador_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 420, 10));
+        background.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        background.add(separador_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 234, 420, -1));
 
         passwordTxT.setForeground(new java.awt.Color(204, 204, 204));
         passwordTxT.setText("***************");
@@ -196,18 +201,45 @@ public class LoginSystem extends javax.swing.JFrame {
                 passwordTxTMousePressed(evt);
             }
         });
-        background.add(passwordTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 420, 30));
+        background.add(passwordTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 420, 30));
+
+        nombreLabel.setBackground(new java.awt.Color(255, 255, 255));
+        nombreLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        nombreLabel.setForeground(new java.awt.Color(0, 0, 0));
+        nombreLabel.setText("NOMBRE");
+        background.add(nombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        background.add(separador_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 307, 420, -1));
+
+        nombreTXT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        nombreTXT.setForeground(new java.awt.Color(153, 153, 153));
+        nombreTXT.setText("Ingrese su nombre");
+        nombreTXT.setBorder(null);
+        nombreTXT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nombreTXTMousePressed(evt);
+            }
+        });
+        background.add(nombreTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 420, 30));
+
+        rolLabel.setBackground(new java.awt.Color(255, 255, 255));
+        rolLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        rolLabel.setForeground(new java.awt.Color(0, 0, 0));
+        rolLabel.setText("ROL");
+        background.add(rolLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+
+        rolTXT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Asistente" }));
+        background.add(rolTXT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 420, 30));
 
         botonIniciar.setBackground(new java.awt.Color(255, 102, 0));
         botonIniciar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         botonIniciar.setForeground(new java.awt.Color(255, 255, 255));
-        botonIniciar.setText("ENTRAR");
+        botonIniciar.setText("REGISTRAR");
         botonIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonIniciarActionPerformed(evt);
             }
         });
-        background.add(botonIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 420, 40));
+        background.add(botonIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 420, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,36 +287,63 @@ public class LoginSystem extends javax.swing.JFrame {
 
     private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
         //PLACEHOLDER DEL USUARIO
-        if(userTxT.getText().equals("Ingrese su nombre de usuario")){
-           userTxT.setText("");
-           userTxT.setForeground(Color.black);
+        if (userTxT.getText().equals("Ingrese su correo electrónico")) {
+            userTxT.setText("");
+            userTxT.setForeground(Color.black);
         }
-        
-        if (String.valueOf(passwordTxT.getPassword()).isEmpty()){
+
+        if (String.valueOf(passwordTxT.getPassword()).isEmpty()) {
             passwordTxT.setText("***************");
             passwordTxT.setForeground(Color.gray);
         }
-    }//GEN-LAST:event_userTxTMousePressed
 
-    private void passwordTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTxTMousePressed
-        //PLACEHOLDER DE LA CONTRASEÑA
-        if(String.valueOf(passwordTxT.getPassword()).equals("***************")){
-            passwordTxT.setText("");
-            passwordTxT.setForeground(Color.black);
+        if (nombreTXT.getText().isEmpty()) {
+            nombreTXT.setText("Ingrese su nombre");
+            nombreTXT.setForeground(Color.gray);
         }
-  
-        if (userTxT.getText().isEmpty()){
-            userTxT.setText("Ingrese su nombre de usuario");
-            userTxT.setForeground(Color.gray);
-        }
-    }//GEN-LAST:event_passwordTxTMousePressed
+    }//GEN-LAST:event_userTxTMousePressed
 
     private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
         //LLAMA AL METODO VALIDAR USUARIO AL PRESIONAR EL BOTON "ENTRAR"
         validar();
     }//GEN-LAST:event_botonIniciarActionPerformed
 
-    
+    private void nombreTXTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreTXTMousePressed
+        //PLACEHOLDER DEL NOMBRE
+        if (nombreTXT.getText().equals("Ingrese su nombre")) {
+            nombreTXT.setText("");
+            nombreTXT.setForeground(Color.black);
+        }
+
+        if (userTxT.getText().isEmpty()) {
+            userTxT.setText("Ingrese su correo electrónico");
+            userTxT.setForeground(Color.gray);
+        }
+
+        if (String.valueOf(passwordTxT.getPassword()).isEmpty()) {
+            passwordTxT.setText("***************");
+            passwordTxT.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nombreTXTMousePressed
+
+    private void passwordTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTxTMousePressed
+        //PLACEHOLDER DE LA CONTRASEÑA
+        if (String.valueOf(passwordTxT.getPassword()).equals("***************")) {
+            passwordTxT.setText("");
+            passwordTxT.setForeground(Color.black);
+        }
+
+        if (userTxT.getText().isEmpty()) {
+            userTxT.setText("Ingrese su correo electrónico");
+            userTxT.setForeground(Color.gray);
+        }
+
+        if (nombreTXT.getText().isEmpty()) {
+            nombreTXT.setText("Ingrese su nombre");
+            nombreTXT.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_passwordTxTMousePressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -312,7 +371,7 @@ public class LoginSystem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginSystem().setVisible(true);
+                new registroUsuario().setVisible(true);
             }
         });
     }
@@ -329,10 +388,15 @@ public class LoginSystem extends javax.swing.JFrame {
     private javax.swing.JLabel nombreEmpresa_1;
     private javax.swing.JLabel nombreEmpresa_2;
     private javax.swing.JLabel nombreEmpresa_3;
+    private javax.swing.JLabel nombreLabel;
+    private javax.swing.JTextField nombreTXT;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordTxT;
+    private javax.swing.JLabel rolLabel;
+    private javax.swing.JComboBox<String> rolTXT;
     private javax.swing.JSeparator separador_1;
     private javax.swing.JSeparator separador_2;
+    private javax.swing.JSeparator separador_4;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTxT;

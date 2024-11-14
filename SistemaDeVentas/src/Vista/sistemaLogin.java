@@ -5,7 +5,7 @@ import Controlador.LoginDAO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-public class LoginSystem extends javax.swing.JFrame {
+public class sistemaLogin extends javax.swing.JFrame {
 
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
@@ -14,7 +14,7 @@ public class LoginSystem extends javax.swing.JFrame {
     Login login = new Login();
     LoginDAO logindao = new LoginDAO();
     
-    public LoginSystem() {
+    public sistemaLogin() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
@@ -29,7 +29,7 @@ public class LoginSystem extends javax.swing.JFrame {
  
             login = logindao.log(correo, pass);
             if(login.getCorreo() != null && login.getPass() != null){
-                Sistema sistema = new Sistema();
+                sistemaVenta sistema = new sistemaVenta(login);
                 sistema.setVisible(true);
                 dispose();
             } else {
@@ -166,13 +166,13 @@ public class LoginSystem extends javax.swing.JFrame {
         userLabel.setBackground(new java.awt.Color(255, 255, 255));
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setForeground(new java.awt.Color(0, 0, 0));
-        userLabel.setText("USUARIO");
+        userLabel.setText("CORREO");
         background.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
         background.add(separador_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 257, 420, -1));
 
         userTxT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         userTxT.setForeground(new java.awt.Color(153, 153, 153));
-        userTxT.setText("Ingrese su nombre de usuario");
+        userTxT.setText("Ingrese su correo electrónico");
         userTxT.setBorder(null);
         userTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -255,7 +255,7 @@ public class LoginSystem extends javax.swing.JFrame {
 
     private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
         //PLACEHOLDER DEL USUARIO
-        if(userTxT.getText().equals("Ingrese su nombre de usuario")){
+        if(userTxT.getText().equals("Ingrese su correo electrónico")){
            userTxT.setText("");
            userTxT.setForeground(Color.black);
         }
@@ -274,7 +274,7 @@ public class LoginSystem extends javax.swing.JFrame {
         }
   
         if (userTxT.getText().isEmpty()){
-            userTxT.setText("Ingrese su nombre de usuario");
+            userTxT.setText("Ingrese su correo electrónico");
             userTxT.setForeground(Color.gray);
         }
     }//GEN-LAST:event_passwordTxTMousePressed
@@ -312,7 +312,7 @@ public class LoginSystem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginSystem().setVisible(true);
+                new sistemaLogin().setVisible(true);
             }
         });
     }

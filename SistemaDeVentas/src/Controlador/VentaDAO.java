@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentaDAO {
     
@@ -39,13 +41,14 @@ public class VentaDAO {
     
     //METODO PARA REGISTRAR LA VENTA EN LA BASE DE DATOS
     public int registrarVenta(Venta venta){
-        String sql = "INSERT INTO ventas (cliente, vendedor, total) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO ventas (cliente, vendedor, total, fecha) VALUES (?, ?, ?,?)";
         try {
             connection = conexion.getConnection();
             declaracion = connection.prepareStatement(sql);
             declaracion.setString(1, venta.getCliente());
             declaracion.setString(2, venta.getVendedor());
             declaracion.setDouble(3, venta.getTotal());
+            declaracion.setString(4, venta.getFecha());
             declaracion.execute();
         } catch (SQLException e) {
             
@@ -103,5 +106,29 @@ public class VentaDAO {
             System.out.println(e.toString());
             return false;
         }
+    }
+    
+    //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE VENTAS
+    public List listarVentas(){
+        List<Venta> listaVenta = new ArrayList();
+        String sql = "SELECT * FROM ventas";
+        
+        try {
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            resultado = declaracion.executeQuery();
+            while (resultado.next()) {
+                Venta venta = new Venta();
+                venta.setId(resultado.getInt("id"));
+                venta.setCliente(resultado.getString("cliente"));
+                venta.setVendedor(resultado.getString("vendedor"));
+                venta.setTotal(resultado.getDouble("total"));
+                listaVenta.add(venta);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        
+        return listaVenta;
     }
 }

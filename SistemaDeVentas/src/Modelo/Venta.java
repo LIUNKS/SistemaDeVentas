@@ -7,17 +7,19 @@ public class Venta {
     private String cliente;
     private String vendedor;
     private double total;
+    private String fecha;
 
     //CONSTRUCTOR VACIO
     public Venta() {
     }
 
     //CONSTRUCTOR PARAMETRIZADO
-    public Venta(int id, String cliente, String vendedor, double total) {
+    public Venta(int id, String cliente, String vendedor, double total, String fecha) {
         this.id = id;
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.total = total;
+        this.fecha = fecha;
     }
 
     //GETTERS & SETTERS
@@ -51,6 +53,14 @@ public class Venta {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
     
 }

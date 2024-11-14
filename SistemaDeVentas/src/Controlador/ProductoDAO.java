@@ -207,4 +207,34 @@ public class ProductoDAO {
         
         return config;
     }
+    
+    //METODO PARA ACTUALIZAR DATOS DE LA EMPRESA
+    public boolean modificarDatos(Config config){
+        
+        String sql = "UPDATE config SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, config.getRuc());
+            declaracion.setString(2, config.getNombre());
+            declaracion.setInt(3, config.getTelefono());
+            declaracion.setString(4, config.getDireccion());
+            declaracion.setString(5, config.getRazon());
+            declaracion.setInt(6, config.getId());
+            declaracion.execute();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            
+            return false;
+            
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
 }

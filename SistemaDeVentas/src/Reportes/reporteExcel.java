@@ -34,7 +34,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
-public class Excel {
+public class reporteExcel {
     public static void reporte() {
  
         Workbook book = new XSSFWorkbook();
@@ -144,9 +144,9 @@ public class Excel {
             JOptionPane.showMessageDialog(null, "Reporte Generado");
  
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(reporteExcel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | SQLException ex) {
-            Logger.getLogger(Excel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(reporteExcel.class.getName()).log(Level.SEVERE, null, ex);
         }
  
     }

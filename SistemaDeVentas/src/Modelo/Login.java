@@ -8,17 +8,19 @@ public class Login {
     private String nombre;
     private String correo;
     private String pass;
+    private String rol;
     
     //CONSTRUCTOR VACIO
     public Login(){
     }
 
     //CONSTRUCTOR PARAMETRIZADO
-    public Login(int id, String nombre, String correo, String pass) {
+    public Login(int id, String nombre, String correo, String pass, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.pass = pass;
+        this.rol = rol;
     }
     
     //GETTERS & SETTERS
@@ -54,4 +56,12 @@ public class Login {
         this.pass = pass;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
 }
