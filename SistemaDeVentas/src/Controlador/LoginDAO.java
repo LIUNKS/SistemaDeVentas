@@ -41,6 +41,7 @@ public class LoginDAO {
                 login.setNombre(resultado.getString("nombre"));
                 login.setCorreo(resultado.getString("correo"));
                 login.setPass(resultado.getString("pass"));
+                login.setRol(resultado.getString("rol"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -49,4 +50,21 @@ public class LoginDAO {
         return login;
     }
     
+    public boolean registrar(Login registro){
+        String sql = "INSERT INTO usuario (nombre, correo, pass, rol) VALUES (?,?,?,?)";
+        try {
+            connection = conexion.getConnection();
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setString(1, registro.getNombre());
+            declaracion.setString(2, registro.getCorreo());
+            declaracion.setString(3, registro.getPass());
+            declaracion.setString(4, registro.getRol());
+            declaracion.execute();
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }
