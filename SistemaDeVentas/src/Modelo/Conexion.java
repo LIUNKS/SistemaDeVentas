@@ -10,8 +10,8 @@ public class Conexion {
     Connection conexion;
     public Connection getConnection(){
         try{
-            String myBD = "jdbc:mysql://localhost:3306/sistemaventaferreteria?serverTimezone=UTC";
-            conexion = DriverManager.getConnection(myBD, "root", "");
+            String baseDatos = "jdbc:ucanaccess://src/Documentos/sistemaventaferreteria.accdb";
+            conexion = DriverManager.getConnection(baseDatos);
             return conexion;
         } catch (SQLException e){
             System.out.println(e.toString());
@@ -19,5 +19,4 @@ public class Conexion {
         
         return null;
     }
-    
 }

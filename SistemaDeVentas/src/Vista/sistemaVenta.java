@@ -102,6 +102,7 @@ public class sistemaVenta extends javax.swing.JFrame {
             botonProductos.setEnabled(false);
             botonProveedor.setEnabled(false);
             botonConfiguracion.setEnabled(false);
+            botonUsuarios.setEnabled(false);
             vendedorTXT_venta.setText(privilegios.getNombre());
         } else {
             vendedorTXT_venta.setText(privilegios.getNombre());
@@ -1992,7 +1993,8 @@ public class sistemaVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGraficarActionPerformed
 
     private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
-        // TODO add your handling code here:
+        registroUsuario registro = new registroUsuario();
+        registro.setVisible(true);
     }//GEN-LAST:event_botonUsuariosActionPerformed
 
     public static void main(String args[]) {
