@@ -1908,7 +1908,7 @@ public class sistemaVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreTXT_2KeyTyped
 
     private void telefonoTXT_2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoTXT_2KeyTyped
-        validacion.permitirSoloLetras(evt);
+        validacion.permitirSoloNumeros(evt);
     }//GEN-LAST:event_telefonoTXT_2KeyTyped
 
     private void rucTXT_3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rucTXT_3KeyTyped
