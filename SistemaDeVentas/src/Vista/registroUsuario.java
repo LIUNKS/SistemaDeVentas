@@ -275,8 +275,8 @@ public class registroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirMouseEntered
 
     private void botonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseClicked
-        //CERRAR EL PROGRAMA
-        System.exit(0);
+        //CIERRA LA VENTANA DEL PROGRAMA
+        this.dispose();
     }//GEN-LAST:event_botonSalirMouseClicked
 
     private void botonSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSalirMouseExited
