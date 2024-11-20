@@ -1658,8 +1658,9 @@ public class sistemaVenta extends javax.swing.JFrame {
                 proveedordao.modificarProveedor(proveedor);
                 JOptionPane.showMessageDialog(null, "Proveedor Modificado");
                 limpiarTabla();
-                listarProveedor();
                 limpiarProveedor();
+                listarProveedor();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");
             }
