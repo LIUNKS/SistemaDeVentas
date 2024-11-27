@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 
-public class ProductoDAO {
+public class ProductoDAO implements _Operaciones{
     
     //DATOS PARA INTERACTUAR CON LA BASE DE DATOS
     Connection connection;
@@ -72,8 +72,39 @@ public class ProductoDAO {
         }
     }
     
+    //METODO PARA ACTUALIZAR DATOS DEL PRODUCTO
+    public boolean modificarProducto(Producto producto){
+        
+        String sql = "UPDATE productos SET codigo=?, nombre=?, proveedor=?, stock=?, precio=? WHERE id=?";
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setString(1, producto.getCodigo());
+            declaracion.setString(2, producto.getNombre());
+            declaracion.setString(3, producto.getProveedor());
+            declaracion.setInt(4, producto.getStock());
+            declaracion.setDouble(5, producto.getPrecio());
+            declaracion.setInt(6, producto.getId());
+            declaracion.execute();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            
+            return false;
+            
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+    
     //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE PRODUCTOS
-    public List listarProductos(){
+    @Override
+    public List listar(){
         List<Producto> listaProducto = new ArrayList();
         String sql = "SELECT * FROM productos";
         
@@ -99,7 +130,8 @@ public class ProductoDAO {
     }
     
     //METODO PARA ELIMINAR PRODUCTOS
-    public boolean eliminarProducto(int id){
+    @Override
+    public boolean eliminar(int id){
         //CONSULTA A LA BASE DE DATOS
         String sql = "DELETE FROM productos WHERE id = ?";
         //MANEJO DE EXCEPCIONES
@@ -111,36 +143,6 @@ public class ProductoDAO {
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-            }
-        }
-    }
-    
-    //METODO PARA ACTUALIZAR DATOS DEL PRODUCTO
-    public boolean modificarProducto(Producto producto){
-        
-        String sql = "UPDATE productos SET codigo=?, nombre=?, proveedor=?, stock=?, precio=? WHERE id=?";
-        try {
-            declaracion = connection.prepareStatement(sql);
-            declaracion.setString(1, producto.getCodigo());
-            declaracion.setString(2, producto.getNombre());
-            declaracion.setString(3, producto.getProveedor());
-            declaracion.setInt(4, producto.getStock());
-            declaracion.setDouble(5, producto.getPrecio());
-            declaracion.setInt(6, producto.getId());
-            declaracion.execute();
-            
-            return true;
-            
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            
-            return false;
-            
         } finally {
             try {
                 connection.close();

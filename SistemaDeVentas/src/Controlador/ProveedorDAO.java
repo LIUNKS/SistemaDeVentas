@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProveedorDAO {
+public class ProveedorDAO implements _Operaciones{
 
     //DATOS PARA INTERACTUAR CON LA BASE DE DATOS
     Connection connection;
@@ -50,8 +50,39 @@ public class ProveedorDAO {
         }
     }
     
+    //METODO PARA ACTUALIZAR DATOS DEL PROVEEDOR
+    public boolean modificarProveedor(Proveedor proveedor){
+        
+        String sql = "UPDATE proveedor SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
+        try {
+            declaracion = connection.prepareStatement(sql);
+            declaracion.setInt(1, proveedor.getRuc());
+            declaracion.setString(2, proveedor.getNombre());
+            declaracion.setInt(3, proveedor.getTelefono());
+            declaracion.setString(4, proveedor.getDireccion());
+            declaracion.setString(5, proveedor.getRazonSocial());
+            declaracion.setInt(6, proveedor.getId());
+            declaracion.execute();
+            
+            return true;
+            
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            
+            return false;
+            
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
+        }
+    }
+    
     //ASIGNA LA INFORMACION DE LA BASE DE DATOS A LA TABLA DE PROVEEDOR
-    public List listarProveedor(){
+    @Override
+    public List listar(){
         List<Proveedor> listaProveedor = new ArrayList();
         String sql = "SELECT * FROM proveedor";
         
@@ -77,7 +108,8 @@ public class ProveedorDAO {
     }
     
     //METODO PARA ELIMINAR PROVEEDOR
-    public boolean eliminarProveedor(int id){
+    @Override
+    public boolean eliminar(int id){
         //CONSULTA A LA BASE DE DATOS
         String sql = "DELETE FROM proveedor WHERE id = ?";
         //MANEJO DE EXCEPCIONES
@@ -89,36 +121,6 @@ public class ProveedorDAO {
         } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
-            }
-        }
-    }
-    
-    //METODO PARA ACTUALIZAR DATOS DEL PROVEEDOR
-    public boolean modificarProveedor(Proveedor proveedor){
-        
-        String sql = "UPDATE proveedor SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
-        try {
-            declaracion = connection.prepareStatement(sql);
-            declaracion.setInt(1, proveedor.getRuc());
-            declaracion.setString(2, proveedor.getNombre());
-            declaracion.setInt(3, proveedor.getTelefono());
-            declaracion.setString(4, proveedor.getDireccion());
-            declaracion.setString(5, proveedor.getRazonSocial());
-            declaracion.setInt(6, proveedor.getId());
-            declaracion.execute();
-            
-            return true;
-            
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-            
-            return false;
-            
         } finally {
             try {
                 connection.close();
