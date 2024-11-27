@@ -72,5 +72,5 @@ public class Cliente {
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
-    
+ 
 }

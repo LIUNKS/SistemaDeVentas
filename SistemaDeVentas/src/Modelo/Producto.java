@@ -23,8 +23,6 @@ public class Producto {
         this.stock = stock;
         this.precio = precio;
     }
-   
-    
 
     //GETTERS & SETTERS
     public int getId() {
