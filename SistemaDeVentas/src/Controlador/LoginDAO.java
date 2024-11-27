@@ -62,7 +62,7 @@ public class LoginDAO {
             declaracion.execute();
             return true;
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.toString());
             return false;
         }
