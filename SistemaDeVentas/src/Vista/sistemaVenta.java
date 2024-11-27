@@ -70,6 +70,27 @@ public class sistemaVenta extends javax.swing.JFrame {
 
     public sistemaVenta() {
         initComponents();
+
+        //CENTRALIZA LA VENTANA DEL PROGRAMA
+        this.setLocationRelativeTo(null);
+
+        // Ocultar los campos
+        idProductoNV_TXT.setVisible(false);
+        idClienteTXT.setVisible(false);
+        idProveedorTXT.setVisible(false);
+        idProductoTXT.setVisible(false);
+        telefonoCV_TXT_venta.setVisible(false);
+        direccionCV_TXT_venta.setVisible(false);
+        razonCV_TXT_venta.setVisible(false);
+        idConfigTXT.setVisible(false);
+        idVentasTXT.setVisible(false);
+        vendedorTXT_venta.setVisible(false);
+
+        // Autocompletado en la tabla proveedor
+        AutoCompleteDecorator.decorate(proveedorTXT_4);
+
+        // Consultar datos del proveedor
+        productodao.consultarProveedor(proveedorTXT_4);
     }
 
     public sistemaVenta(Login privilegios) {
@@ -98,9 +119,6 @@ public class sistemaVenta extends javax.swing.JFrame {
 
         // Configuración según privilegios
         if (privilegios.getRol().equals("Asistente")) {
-            botonClientes.setEnabled(false);
-            botonProductos.setEnabled(false);
-            botonProveedor.setEnabled(false);
             botonConfiguracion.setEnabled(false);
             botonUsuarios.setEnabled(false);
             vendedorTXT_venta.setText(privilegios.getNombre());
@@ -112,7 +130,7 @@ public class sistemaVenta extends javax.swing.JFrame {
     public void listarCliente() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA CLIENTE
         @SuppressWarnings("unchecked")
-        List<Cliente> listarClientes = clientedao.listarCliente();
+        List<Cliente> listarClientes = clientedao.listar();
         modelo = (DefaultTableModel) tabla_2.getModel();
         Object[] objeto = new Object[6];
         for (int i = 0; i < listarClientes.size(); i++) {
@@ -131,7 +149,7 @@ public class sistemaVenta extends javax.swing.JFrame {
     public void listarProveedor() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA PROVEEDOR
         @SuppressWarnings("unchecked")
-        List<Proveedor> listarProveedor = proveedordao.listarProveedor();
+        List<Proveedor> listarProveedor = proveedordao.listar();
         modelo = (DefaultTableModel) tabla_3.getModel();
         Object[] objeto = new Object[6];
         for (int i = 0; i < listarProveedor.size(); i++) {
@@ -150,7 +168,7 @@ public class sistemaVenta extends javax.swing.JFrame {
     public void listarProducto() {
         //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA PRODUCTO
         @SuppressWarnings("unchecked")
-        List<Producto> listarProducto = productodao.listarProductos();
+        List<Producto> listarProducto = productodao.listar();
         modelo = (DefaultTableModel) tabla_4.getModel();
         Object[] objeto = new Object[6];
         for (int i = 0; i < listarProducto.size(); i++) {
@@ -635,7 +653,7 @@ public class sistemaVenta extends javax.swing.JFrame {
         total_precio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total_precio.setText("-----");
 
-        vendedorTXT_venta.setText("Hola");
+        vendedorTXT_venta.setText("Anónimo");
 
         botonGraficar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/torta.png"))); // NOI18N
         botonGraficar.addActionListener(new java.awt.event.ActionListener() {
@@ -996,7 +1014,7 @@ public class sistemaVenta extends javax.swing.JFrame {
         });
         tabla_proveedor.setViewportView(tabla_3);
         if (tabla_3.getColumnModel().getColumnCount() > 0) {
-            tabla_3.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tabla_3.getColumnModel().getColumn(0).setPreferredWidth(10);
             tabla_3.getColumnModel().getColumn(1).setPreferredWidth(40);
             tabla_3.getColumnModel().getColumn(2).setPreferredWidth(100);
             tabla_3.getColumnModel().getColumn(3).setPreferredWidth(50);
@@ -1163,6 +1181,7 @@ public class sistemaVenta extends javax.swing.JFrame {
         });
         tabla_productos.setViewportView(tabla_4);
         if (tabla_4.getColumnModel().getColumnCount() > 0) {
+            tabla_4.getColumnModel().getColumn(0).setPreferredWidth(10);
             tabla_4.getColumnModel().getColumn(1).setPreferredWidth(50);
             tabla_4.getColumnModel().getColumn(2).setPreferredWidth(100);
             tabla_4.getColumnModel().getColumn(3).setPreferredWidth(60);
@@ -1247,8 +1266,8 @@ public class sistemaVenta extends javax.swing.JFrame {
                         .addComponent(idProductoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_4Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
-                        .addComponent(tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 26, Short.MAX_VALUE))
+                        .addComponent(tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         panel_4Layout.setVerticalGroup(
             panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1329,15 +1348,16 @@ public class sistemaVenta extends javax.swing.JFrame {
         panel_5Layout.setHorizontalGroup(
             panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_5Layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
-                .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(idVentasTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(742, 742, 742))
-            .addGroup(panel_5Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_5Layout.createSequentialGroup()
+                        .addComponent(botonPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(idVentasTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(742, 742, 742))
+                    .addGroup(panel_5Layout.createSequentialGroup()
+                        .addComponent(tabla_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(51, Short.MAX_VALUE))))
         );
         panel_5Layout.setVerticalGroup(
             panel_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1548,7 +1568,7 @@ public class sistemaVenta extends javax.swing.JFrame {
             int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar?");
             if (pregunta == 0) {
                 int id = Integer.parseInt(idClienteTXT.getText());
-                clientedao.eliminarCliente(id);
+                clientedao.eliminar(id);
                 limpiarTabla();
                 listarCliente();
                 limpiarCliente();
@@ -1631,7 +1651,7 @@ public class sistemaVenta extends javax.swing.JFrame {
             int pregunta = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar?");
             if (pregunta == 0) {
                 int id = Integer.parseInt(idProveedorTXT.getText());
-                proveedordao.eliminarProveedor(id);
+                proveedordao.eliminar(id);
                 limpiarTabla();
                 listarProveedor();
                 limpiarProveedor();
@@ -1660,7 +1680,6 @@ public class sistemaVenta extends javax.swing.JFrame {
                 limpiarTabla();
                 limpiarProveedor();
                 listarProveedor();
-                
             } else {
                 JOptionPane.showMessageDialog(null, "Los campos estan vacios");
             }
@@ -1716,7 +1735,7 @@ public class sistemaVenta extends javax.swing.JFrame {
             int pregunta = JOptionPane.showConfirmDialog(null, "Estás seguro de eliminar el producto?");
             if (pregunta == 0) {
                 int id = Integer.parseInt(idProductoTXT.getText());
-                productodao.eliminarProducto(id);
+                productodao.eliminar(id);
                 limpiarTabla();
                 listarProducto();
                 limpiarProducto();
@@ -1822,10 +1841,15 @@ public class sistemaVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_cantidadTXT_ventaKeyPressed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        modelo = (DefaultTableModel) tabla_1.getModel();
-        modelo.removeRow(tabla_1.getSelectedRow());
-        totalPagar();
-        codigoTXT_venta.requestFocus();
+        DefaultTableModel modeloVenta = (DefaultTableModel) tabla_1.getModel();
+        int selectedRow = tabla_1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una línea para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            modeloVenta.removeRow(selectedRow);
+            totalPagar();
+            codigoTXT_venta.requestFocus();
+        }
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void dniTXT_ventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniTXT_ventaKeyPressed
@@ -2201,6 +2225,7 @@ public class sistemaVenta extends javax.swing.JFrame {
         direccionCV_TXT_venta.setText("");
         telefonoCV_TXT_venta.setText("");
         razonCV_TXT_venta.setText("");
+        total_precio.setText("-----");
     }
 
     private void totalPagar() {
