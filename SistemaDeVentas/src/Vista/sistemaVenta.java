@@ -91,6 +91,9 @@ public class sistemaVenta extends javax.swing.JFrame {
 
         // Consultar datos del proveedor
         productodao.consultarProveedor(proveedorTXT_4);
+        
+        //CARGAR DATOS DE LA EMPRESA
+        listarConfig();
     }
 
     public sistemaVenta(Login privilegios) {
@@ -125,6 +128,9 @@ public class sistemaVenta extends javax.swing.JFrame {
         } else {
             vendedorTXT_venta.setText(privilegios.getNombre());
         }
+        
+        //CARGAR DATOS DE LA EMPRESA
+        listarConfig();
     }
 
     public void listarCliente() {
@@ -1620,8 +1626,9 @@ public class sistemaVenta extends javax.swing.JFrame {
             proveedor.setRazonSocial((rSocialTXT_3.getText()));
             proveedordao.registrarProveedor(proveedor);
             limpiarTabla();
-            listarProveedor();
             limpiarProveedor();
+            listarProveedor();
+            JOptionPane.showMessageDialog(null, "Proveedor registrado");
         } else {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios");
         }
@@ -1712,8 +1719,9 @@ public class sistemaVenta extends javax.swing.JFrame {
             producto.setPrecio(Integer.parseInt(precioTXT_4.getText()));
             productodao.registrarProducto(producto);
             limpiarTabla();
-            listarProducto();
             limpiarProducto();
+            listarProducto();
+            JOptionPane.showMessageDialog(null, "Producto registrado");
         } else {
             JOptionPane.showMessageDialog(null, "Los campos estan vacios");
         }
