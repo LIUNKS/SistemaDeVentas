@@ -1,4 +1,4 @@
-# Sistema de Ventas Ferretería
+# Sistema de Ventas
 
 Este es un proyecto final para el curso de Programación Orientada a Objetos. Se trata de un sistema de ventas para una ferretería, desarrollado en Java utilizando la interfaz gráfica de usuario con Java Swing.
 
@@ -11,7 +11,7 @@ Este es un proyecto final para el curso de Programación Orientada a Objetos. Se
 ## Instalación
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/LIUNKS/SistemaDeVentasFerreteria.git
+    git clone https://github.com/LIUNKS/SistemaDeVentas.git
     ```
 2. Abre el proyecto en NetBeans o tu IDE preferido.
 3. Ejecuta el archivo principal para iniciar el sistema.
